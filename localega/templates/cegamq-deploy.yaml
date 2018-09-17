@@ -1,0 +1,59 @@
+{{ if .Values.deploy.cega }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "localega.fullname" . }}-cega-mq
+  labels:
+    role: broker
+    app: cega-mq
+spec:
+  replicas: 1
+  serviceName: "cega-mq"
+  selector:
+    matchLabels:
+      app: cega-mq
+  template:
+    metadata:
+      labels:
+        app: cega-mq
+    spec:
+      containers:
+      - name: cega-mq
+        image: "{{ .Values.mq.repository }}:{{ .Values.mq.imageTag }}"
+        imagePullPolicy: {{ .Values.mq.imagePullPolicy | quote }}
+        command: ["/scripts/cega-mq.sh"]
+        ports:
+        - name: cega-mq
+          containerPort: 15672
+          protocol: TCP
+        - containerPort: 5672
+          name: amqp
+        volumeMounts:
+        - name: cega-mq-entrypoint
+          mountPath: /scripts
+        - name: temp
+          mountPath: /temp
+        - name: rabbitmq
+          mountPath: /etc/rabbitmq
+      volumes:
+      - name: cega-mq-entrypoint
+        configMap:
+          name: cega-mq-entrypoint
+          defaultMode: 0744
+      - name: temp
+        configMap:
+          name: cega-mq-config
+          items:
+            - key: cega.json
+              path: defs.json
+            - key: cega.config
+              path: rabbitmq.config
+          defaultMode: 0744
+      - name: rabbitmq
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: cega-rabbitmq
+      {{ else}}
+        emptyDir: {}
+      {{ end }}
+{{ end }}

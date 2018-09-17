@@ -1,0 +1,20 @@
+{{- if and .Values.persistence.enabled ( eq "local-storage" .Values.persistence.storageClass ) }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: cega-rabbitmq-pv
+  labels:
+    type: local-storage
+spec:
+  storageClassName: {{ .Values.persistence.storageClass | quote }} 
+  claimRef:
+    namespace: {{ .Release.Namespace }}
+    name: cega-rabbitmq
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/cega"
+    type: DirectoryOrCreate
+{{ end }}

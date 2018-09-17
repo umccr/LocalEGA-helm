@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "localega.fullname" . }}-mapper
+  labels:
+    role: mapper
+    app: {{ template "localega.name" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mapper
+  template:
+    metadata:
+      labels:
+        app: mapper
+        role: mapper
+    spec:
+      containers:
+      - name: mapper
+        image: "{{ .Values.base.image }}:{{ .Values.base.imageTag }}"
+        imagePullPolicy: {{ .Values.base.imagePullPolicy | quote }}
+        command: ["gosu", "lega", "ega-id-mapper"]
+        volumeMounts:
+        - name: mapper-conf
+          mountPath: /etc/ega
+      restartPolicy: Always
+      volumes:
+      - name: mapper-conf
+        configMap:
+          name: {{ template "localega.name" . }}-config
+          items:
+            - key: conf.ini
+              path: conf.ini
+          defaultMode: 0744

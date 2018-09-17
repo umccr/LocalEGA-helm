@@ -1,0 +1,52 @@
+{{ if .Values.deploy.config }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "localega.name" . }}-config
+  labels:
+    app: {{ template "localega.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+{{ ( .Files.Glob "config/ssl.cert" ).AsConfig | indent 2 }}
+{{ ( .Files.Glob "config/ssl.key" ).AsConfig | indent 2 }}
+  conf.ini: |-
+    [DEFAULT]
+    log = console
+
+    [keyserver]
+    port = 8443
+
+    [quality_control]
+    keyserver_endpoint = https://keys.:8443/retrieve/%s/private
+
+    [inbox]
+    location = /ega/inbox/%s
+    mode = 2750
+
+    [vault]
+    driver = S3Storage
+    url = http://minio.:9000
+    #region = lega
+
+
+    [outgestion]
+    # Just for test
+    keyserver_endpoint = https://keys:8443/retrieve/%s/private
+
+    ## Connecting to Local EGA
+    [broker]
+    host = mq
+    connection_attempts = 30
+    # delay in seconds
+    retry_delay = 10
+
+    [postgres]
+    host = db
+    user = lega
+    try = 30
+
+    [eureka]
+    endpoint = http://cega-eureka:8761
+{{ end }}

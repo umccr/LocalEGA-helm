@@ -1,0 +1,13 @@
+{{ if and .Values.deploy.cega .Values.persistence.enabled}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cega-rabbitmq
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "{{ .Values.persistence.storageClass }}"
+  resources:
+    requests:
+      storage: 1Gi
+{{ end }}

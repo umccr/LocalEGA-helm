@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "localega.fullname" . }}-inbox
+  labels:
+    app: {{ template "localega.name" . }}
+spec:
+  ports:
+    - name: inbox
+      port: {{ .Values.inbox.service.port }}
+      targetPort: "inbox"
+      {{- if (and (eq .Values.inbox.service.type "NodePort") (not (empty .Values.inbox.service.nodePort))) }}
+      nodePort: {{ .Values.inbox.service.nodePort }}
+      {{- end }}
+      protocol: TCP
+      name: inbox
+  selector:
+    app: inbox

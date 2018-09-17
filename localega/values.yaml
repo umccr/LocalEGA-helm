@@ -1,0 +1,66 @@
+# Default values for localega.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+base:
+  image: nbisweden/ega-base
+  imageTag: latest
+  imagePullPolicy: Always
+
+deploy:
+  cega: false
+  config: true
+  secrets: true
+
+persistence: 
+  enabled: true
+  storageClass: ""
+
+secrets:
+  cega_address: ""
+  cega_creds: ""
+  cega_mq_pass: ""
+  keys_password: ""
+  lega_password: ""
+  mq_password: ""
+  postgres_password: ""
+  s3_access: ""
+  s3_secret: ""
+
+inbox:
+  name: inbox
+  repository: nbisweden/ega-mina-inbox
+  imageTag: latest
+  imagePullPolicy: IfNotPresent
+  inboxPath: ""
+  replicaCount: 1
+  persistence:
+    existingClaim: ""
+    storageSize: 1Gi
+  service:
+    type: ClusterIP
+    port: 2222
+
+
+ingest:
+  name: ingest
+  replicaCount: 1
+
+postgres:
+  name: db
+  repository: postgres
+  imageTag: 10-alpine
+  imagePullPolicy: IfNotPresent
+  persistence:
+    existingClaim: ""
+    storageSize: 1Gi
+  replicaCount: 1
+
+mq:
+  name: mq
+  repository: rabbitmq
+  imageTag: 3.6.14-management
+  imagePullPolicy: IfNotPresent
+  replicaCount: 1
+  persistence:
+    existingClaim: ""
+    storageSize: 1Gi

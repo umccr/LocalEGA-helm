@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "localega.fullname" . }}-keys
+  labels:
+    role: keyserver
+    app: {{ template "localega.name" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keys
+  template:
+    metadata:
+      labels:
+        app: keys
+        role: keyserver
+    spec:
+      containers:
+      - name: keyserver
+        image: "{{ .Values.base.image }}:{{ .Values.base.imageTag }}"
+        imagePullPolicy: {{ .Values.base.imagePullPolicy | quote }}
+        command: ["gosu","lega","ega-keyserver","--keys","/etc/ega/keys.ini"]
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "localega.name" . }}-db-secret
+              key: postgres_password
+        - name: LEGA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "localega.name" . }}-password
+              key: password
+        ports:
+        - name: lega-keys
+          containerPort: 8443
+          protocol: TCP
+        volumeMounts:
+        - name: keyserver-conf
+          mountPath: /etc/ega
+      volumes:
+        - name: keyserver-conf
+          projected:
+            sources:
+            - configMap:
+                name: {{ template "localega.name" . }}-config
+                items:
+                  - key: conf.ini
+                    path: conf.ini
+                  - key: ssl.cert
+                    path: ssl.cert
+                  - key: ssl.key
+                    path: ssl.key
+                    mode: 0744
+            - configMap:
+                name: {{ template "localega.name" . }}-keyserver-config
+                items:
+                  - key: keys.ini
+                    path: keys.ini
+                    mode: 0744
+            - configMap:
+                name: {{ template "localega.name" . }}-keyserver-secret
+                items:
+                  - key: key.1.sec
+                    path: pgp/key.1

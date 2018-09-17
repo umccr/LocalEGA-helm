@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "localega.fullname" . }}-mq
+  labels:
+    role: broker
+    app: {{ template "localega.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: "{{ .Values.ingest.name }}"
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  serviceName: mq
+  selector:
+    matchLabels:
+      app: mq
+  template:
+    metadata:
+      labels:
+        app: mq
+        role: broker
+    spec:
+      containers:
+      - name: mq
+        image: "{{ .Values.mq.repository }}:{{ .Values.mq.imageTag }}"
+        imagePullPolicy: {{ .Values.mq.imagePullPolicy }}
+        command: ["/script/mq.sh"]
+        env:
+          - name: CEGA_CONNECTION
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "localega.name" . }}-cega-url
+                key: url
+        ports:
+        - name: lega-mq
+          containerPort: 15672
+          protocol: TCP
+        - containerPort: 5672
+          name: amqp
+        volumeMounts:
+        - name: mq-entrypoint
+          mountPath: /script
+        - name: rabbitmq
+          mountPath: /etc/rabbitmq
+        - name: mq-temp
+          mountPath: /temp
+      volumes:
+      - name: mq-entrypoint
+        configMap:
+          name: {{ template "localega.name" . }}-mq-entrypoint
+          defaultMode: 0744
+      - name: mq-temp
+        configMap:
+            name: {{ template "localega.name" . }}-mq-config
+            items:
+              - key: defs.json
+                path: defs.json
+              - key: rabbitmq.config
+                path: rabbitmq.config
+            defaultMode: 0744
+      - name: rabbitmq
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ if .Values.mq.existingClaim }}{{ .Values.mq.existingClaim }}{{ else }}{{ template "localega.mq.fullname" . }}{{ end }}
+      {{ else}}
+        emptyDir: {}
+      {{ end }}

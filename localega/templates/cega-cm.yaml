@@ -1,0 +1,16 @@
+{{ if .Values.deploy.cega }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cega-users-config
+  labels:
+    app: {{ template "localega.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+{{ ( .Files.Glob "cega/*" ).AsConfig | indent 2 }}
+{{ ( .Files.Glob "config/user.key" ).AsConfig | indent 2 }}
+  ega-box-999.yml: |-
+    ---
+{{ end }}

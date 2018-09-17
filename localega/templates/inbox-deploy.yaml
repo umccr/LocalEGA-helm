@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "localega.fullname" . }}-inbox
+  labels:
+    role: inbox
+    app: {{ template "localega.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: "{{ .Values.ingest.name }}"
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  serviceName: inbox
+  selector:
+    matchLabels:
+      app: inbox
+  template:
+    metadata:
+      labels:
+        app: inbox
+        role: inbox
+    spec:
+      containers:
+      - name: inbox
+        image: "{{ .Values.inbox.repository }}:{{ .Values.inbox.imageTag }}"
+        imagePullPolicy: {{ .Values.inbox.imagePullPolicy | quote }}
+        env:
+        - name: BROKER_HOST
+          value: mq.localega.svc.cluster.local
+        - name: INBOX_PORT
+          value: "2222"
+        - name: CEGA_ENDPOINT
+          value: http://cega-users/user/
+        - name: CEGA_ENDPOINT_CREDS
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "localega.name" . }}-cega-creds
+              key: credentials
+        ports:
+        - name: inbox
+          containerPort: 2222
+          protocol: TCP
+        volumeMounts:
+        - name: lega-inbox
+          mountPath: /ega/inbox
+      volumes:
+      - name: lega-inbox
+      {{- if .Values.persistence.enabled }}
+        {{- if (eq "rook-ceph-block" .Values.persistence.storageClass) }}
+        flexVolume:
+          driver: ceph.rook.io/rook
+          fsType: ceph
+          options:
+            fsName: sharedfs
+            clusterNamespace: rook-ceph
+        {{ else }}
+        persistentVolumeClaim:
+          claimName: {{ if .Values.inbox.existingClaim }}{{ .Values.inbox.existingClaim }}{{- else }}{{ template "localega.inbox.fullname" . }}{{- end }}
+        {{ end }}
+      {{ else}}
+        emptyDir: {}
+      {{ end }}
