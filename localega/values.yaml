@@ -48,7 +48,7 @@ ingest:
 postgres:
   name: db
   repository: postgres
-  imageTag: 10-alpine
+  imageTag: 9.6-alpine
   imagePullPolicy: IfNotPresent
   persistence:
     existingClaim: ""
