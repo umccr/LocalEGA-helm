@@ -28,6 +28,7 @@ helm install localega --values localega/config/trace.yaml
 ### Configuration
 
 The following table lists the configurable parameters of the localega chart and their default values.
+
 Parameter | Description | Default
 --------- | ----------- | -------
 `base.repository` | rabbitmq container image repository | `nbisweden/ega-base`
