@@ -11,10 +11,11 @@ Helm chart to deploy LocalEGA to any kubernetes cluster.
 
 ## Prerequisites
 
-When deploying for the first time you need to create the secrets using the `deploy.pl` script from LocalEGA-deploy-k8s.
+Before deploying the Helm charts HELM should be initialized and the tiller installed, following: https://docs.helm.sh/using_helm#initialize-helm-and-install-tiller.
+When deploying for the first time you need to create the secrets using the `deploy.py` script from [LocalEGA-deploy-k8s](https://github.com/NBISweden/LocalEGA-deploy-k8s).
 
 ```console
-python3 ../auto/deploy.pl --config-path localega/
+python3 ../auto/deploy.py --config-path localega/
 ```
 
 ## Installing the Chart
@@ -22,24 +23,24 @@ python3 ../auto/deploy.pl --config-path localega/
 You can install the Chart via Helm CLI:
 
 ```console
-helm install localega --values localega/config/trace.yaml
+helm install localega --values localega/config/trace.yml
 ```
 
 ### Configuration
 
-The following table lists the configurable parameters of the localega chart and their default values.
+The following table lists the configurable parameters of the `localega` chart and their default values.
 
 Parameter | Description | Default
 --------- | ----------- | -------
-`base.repository` | rabbitmq container image repository | `nbisweden/ega-base`
-`base.imageTag` | rabbitmq container image pull policy | `latest`
-`base.imagePullPolicy` | rabbitmq container image pull policy | `Always`
+`base.repository` | LocalEGA container image repository | `nbisweden/ega-base`
+`base.imageTag` | LocalEGA container image pull policy | `latest`
+`base.imagePullPolicy` | LocalEGA container image pull policy | `Always`
 `deploy.cega` | If true deploy fake CEGA | `false`
 `deploy.config` | If true, deploy ConfigMaps | `true`
 `deploy.secrets` | If true, deploy secrets | `true`
 `persistence.enabled`| If true, create a Persistent Volume Claim for all services that require it| `true`
 `persistence.storageClass` | Storage Class for all Persistent volume Claims, use "local-storage" for local backed storage | `""`
-`secrets.cega_address` | Url to CentralEGA server | `""`
+`secrets.cega_address` | URL to CentralEGA server | `""`
 `secrets.cega_creds` | Credentials to CentralEGA server | `""`
 `secrets.cega_mq_pass` | Password to CentralEGAs rabbitmq | `""`
 `secrets.keys_password` | Keyserver  | `""`
@@ -57,10 +58,10 @@ Parameter | Description | Default
 `inbox.persistence.storageSize` | inbox persistent volume size | `1Gi`
 `ingest.name` | ingest container name | `ingest`
 `ingest.replicaCount` | desired number of ingest workers | `1`
-`postgres.name` | postgres container name | `postgres`
-`postgres.repository` | postgres container image repository | `postgres`
-`postgres.imageTag` | postgres container image pull policy | `10-apline`
-`postgres.imagePullPolicy` | postgres container image pull policy | `IfNotPresent`
+`postgres.name` | postgreSQL container name | `postgres`
+`postgres.repository` | postgreSQL container image repository | `postgres`
+`postgres.imageTag` | postgreSQL container image pull policy | `9.6-apline`
+`postgres.imagePullPolicy` | postgreSQL container image pull policy | `IfNotPresent`
 `postgres.replicaCount` | desired number of postgreses | `1`
 `postgres.persistence.existingClaim` | postgres data Persistent Volume existing claim name | ``
 `postgres.persistence.storageSize` | postgres persistent volume size | `1Gi`
@@ -75,7 +76,7 @@ Parameter | Description | Default
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-helm install localega --set deploy.cega=true --values localega/config/trace.yaml
+helm install localega --set deploy.cega=true --values localega/config/trace.yml
 ```
 
 ## Uninstalling the Chart
