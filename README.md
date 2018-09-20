@@ -33,7 +33,7 @@ The following table lists the configurable parameters of the `localega` chart an
 Parameter | Description | Default
 --------- | ----------- | -------
 `base.repository` | LocalEGA container image repository | `nbisweden/ega-base`
-`base.imageTag` | LocalEGA container image pull policy | `latest`
+`base.imageTag` | LocalEGA container image tag | `latest`
 `base.imagePullPolicy` | LocalEGA container image pull policy | `Always`
 `deploy.cega` | If true deploy fake CEGA | `false`
 `deploy.config` | If true, deploy ConfigMaps | `true`
