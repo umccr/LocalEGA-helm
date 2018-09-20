@@ -58,7 +58,7 @@ postgres:
 mq:
   name: mq
   repository: rabbitmq
-  imageTag: 3.6.14-management
+  imageTag: 3.6-management-alpine
   imagePullPolicy: IfNotPresent
   replicaCount: 1
   persistence:
