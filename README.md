@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Prerequisites](#Prerequisites)
+  - [Optional, add S3 storage](#Optional-add-S3-storage)
 - [Installing the Chart](#Installing-the-Chart)
   - [Configuration](#Configuration)
 - [Uninstalling the Chart](#Uninstalling-the-Chart)
@@ -19,12 +20,26 @@ When deploying for the first time you need to create the secrets using the `depl
 python3 {/PATH/TO/LocalEGA-deploy-k8s}/auto/deploy.py --config-path localega/
 ```
 
+### Optional, add S3 storage
+
+LocalEGA relies on a S3 type backend storage as data archive.  
+If the kubernetes environment doesn't supply a S3 storage it can be added using either [minio](https://www.minio.io/) or [ceph](https://www.ceph.org).
+
+#### Minio
+
+See the [documentation](https://github.com/helm/charts/tree/master/stable/minio) for how to configure minio.  
+More specifically the size of each backing volume and if minio should run in distributed mode or not.
+
+```console
+helm install --namespace localega --set accessKey=s3_access,secretKey=s3_secret stable/minio
+```
+
 ## Installing the Chart
 
 You can install the Chart via Helm CLI:
 
 ```console
-helm install localega --values localega/config/trace.yml
+helm install localega --namespace localega --values localega/config/trace.yml
 ```
 
 ### Configuration
@@ -68,7 +83,7 @@ Parameter | Description | Default
 `postgres.persistence.storageSize` | postgres persistent volume size | `1Gi`
 `rabbitmq.name` | rabbitmq container name | `rabbitmq`
 `rabbitmq.repository` | rabbitmq container image repository | `rabbitmq`
-`rabbitmq.imageTag` | rabbitmq container image pull policy | `3.6.14-management`
+`rabbitmq.imageTag` | rabbitmq container image pull policy | `3.6-management-alpine`
 `rabbitmq.imagePullPolicy` | rabbitmq container image pull policy | `IfNotPresent`
 `rabbitmq.replicaCount` | desired number of rabbitmqes | `1`
 `rabbitmq.persistence.existingClaim` | rabbitmq data Persistent Volume existing claim name | ``
