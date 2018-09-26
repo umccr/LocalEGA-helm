@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "cega.name" . }}-cega-users
+  name: {{ template "cega.fullname" . }}-users
   labels:
     role: fake-users
 spec:
@@ -26,7 +26,7 @@ spec:
           - name: CEGA_REST_lega_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ template "cega.name" . }}-cega-creds
+                name: {{ template "cega.fullname" . }}-creds
                 key: credentials
         ports:
         - name: cega-users
@@ -38,7 +38,7 @@ spec:
       volumes:
         - name: cega-config
           configMap:
-            name: cega-users-config
+            name: {{ template "cega.fullname" . }}-users-config
             items:
               - key: users.html
                 path: users.html

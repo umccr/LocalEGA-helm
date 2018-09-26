@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "cega.fullname" . }}-cega-mq
+  name: {{ template "cega.fullname" . }}-mq
   labels:
     role: broker
     app: cega-mq
@@ -37,11 +37,11 @@ spec:
       volumes:
       - name: cega-mq-entrypoint
         configMap:
-          name: cega-mq-entrypoint
+          name: {{ template "cega.fullname" . }}-mq-entrypoint
           defaultMode: 0744
       - name: temp
         configMap:
-          name: cega-mq-config
+          name: {{ template "cega.fullname" . }}-mq-config
           items:
             - key: cega.json
               path: defs.json

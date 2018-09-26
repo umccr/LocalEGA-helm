@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "cega.name" . }}-cega-mq-management
+  name: {{ template "cega.name" . }}-mq-management
   labels:
     app: cega-mq
 spec:
@@ -16,7 +16,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "cega.name" . }}-cega-mq
+  name: {{ template "cega.name" . }}-mq
   labels:
     app: cega-mq
 spec:

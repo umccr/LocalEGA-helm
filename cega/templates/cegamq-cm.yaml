@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cega-mq-config
+  name: {{ template "cega.fullname" . }}-mq-config
   labels:
     app: {{ template "cega.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
@@ -14,7 +14,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cega-mq-entrypoint
+  name: {{ template "cega.fullname" . }}-mq-entrypoint
   labels:
     app: {{ template "cega.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}

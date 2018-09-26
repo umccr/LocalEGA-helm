@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cega-users-config
+  name: {{ template "cega.fullname" . }}-users-config
   labels:
     app: {{ template "cega.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
