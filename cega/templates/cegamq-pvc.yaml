@@ -6,8 +6,10 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: "{{ .Values.persistence.storageClass }}"
+{{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass | quote }}
+{{- end }}
   resources:
     requests:
-      storage: 1Gi
+      storage: {{ .Values.mq.persistence.storageSize | quote }}
 {{ end }}
