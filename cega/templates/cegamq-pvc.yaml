@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: cega-rabbitmq
+  name: {{ template "cega.fullname" . }}-rabbitmq
 spec:
   accessModes:
     - ReadWriteOnce

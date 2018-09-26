@@ -51,7 +51,7 @@ spec:
       - name: rabbitmq
       {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:
-          claimName: cega-rabbitmq
+          claimName: {{ template "cega.fullname" . }}-rabbitmq
       {{ else}}
         emptyDir: {}
       {{ end }}
