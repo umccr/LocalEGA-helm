@@ -12,7 +12,6 @@ deploy:
 
 persistence: 
   enabled: true
-  storageClass: ""
 
 secrets:
   cega_address: ""
