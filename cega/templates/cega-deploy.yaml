@@ -1,8 +1,7 @@
-{{ if .Values.deploy.cega }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "localega.fullname" . }}-cega-users
+  name: {{ template "cega.name" . }}-cega-users
   labels:
     role: fake-users
 spec:
@@ -27,7 +26,7 @@ spec:
           - name: CEGA_REST_lega_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ template "localega.name" . }}-cega-creds
+                name: {{ template "cega.name" . }}-cega-creds
                 key: credentials
         ports:
         - name: cega-users
@@ -52,5 +51,3 @@ spec:
               - key: user.key
                 path: pubkey
             defaultMode: 0744
-
-{{ end }}

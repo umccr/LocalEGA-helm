@@ -1,8 +1,7 @@
-{{ if .Values.deploy.cega }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "localega.fullname" . }}-cega-users
+  name: {{ template "cega.name" . }}-cega-users
   labels:
     app: cega-users
 spec:
@@ -12,4 +11,3 @@ spec:
     protocol: TCP
   selector:
     app: cega-users
-{{ end }}

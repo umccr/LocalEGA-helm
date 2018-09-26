@@ -1,8 +1,7 @@
-{{ if .Values.deploy.cega }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "localega.fullname" . }}-cega-mq
+  name: {{ template "cega.fullname" . }}-cega-mq
   labels:
     role: broker
     app: cega-mq
@@ -56,4 +55,3 @@ spec:
       {{ else}}
         emptyDir: {}
       {{ end }}
-{{ end }}

@@ -25,35 +25,6 @@ secrets:
   s3_access: ""
   s3_secret: ""
 
-inbox:
-  name: inbox
-  repository: nbisweden/ega-mina-inbox
-  imageTag: latest
-  imagePullPolicy: IfNotPresent
-  inboxPath: ""
-  replicaCount: 1
-  persistence:
-    existingClaim: ""
-    storageSize: 1Gi
-  service:
-    type: ClusterIP
-    port: 2222
-
-
-ingest:
-  name: ingest
-  replicaCount: 1
-
-postgres:
-  name: db
-  repository: postgres
-  imageTag: 9.6-alpine
-  imagePullPolicy: IfNotPresent
-  persistence:
-    existingClaim: ""
-    storageSize: 1Gi
-  replicaCount: 1
-
 mq:
   name: mq
   repository: rabbitmq
