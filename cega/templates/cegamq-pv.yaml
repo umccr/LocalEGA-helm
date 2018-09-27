@@ -1,4 +1,6 @@
-{{- if and .Values.persistence.enabled ( eq "local-storage" .Values.persistence.storageClass ) }}
+{{- if and .Values.persistence.enabled (not .Values.mq.persistence.existingClaim) }}
+{{ if .Values.persistence.storageClass }}
+{{ if "local-storage" .Values.persistence.storageClass }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -9,12 +11,14 @@ spec:
   storageClassName: {{ .Values.persistence.storageClass | quote }} 
   claimRef:
     namespace: {{ .Release.Namespace }}
-    name: cega-rabbitmq
+    name: {{ template "cega.fullname" . }}-rabbitmq
   capacity:
-    storage: 1Gi
+    storage: {{ .Values.mq.persistence.storageSize | quote }}
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data/cega"
+    path: {{ default "/mnt/data/mq" .Values.mq.hostpath | quote }}
     type: DirectoryOrCreate
+{{ end }}
+{{ end }}
 {{ end }}
