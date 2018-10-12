@@ -51,7 +51,6 @@ Parameter | Description | Default
 `base.repository` | LocalEGA container image repository | `nbisweden/ega-base`
 `base.imageTag` | LocalEGA container image tag | `latest`
 `base.imagePullPolicy` | LocalEGA container image pull policy | `Always`
-`deploy.cega` | If true deploy fake CEGA | `false`
 `deploy.config` | If true, deploy ConfigMaps | `true`
 `deploy.secrets` | If true, deploy secrets | `true`
 `persistence.enabled`| If true, create a Persistent Volume Claim for all services that require it| `true`
@@ -92,7 +91,16 @@ Parameter | Description | Default
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-helm install localega --set deploy.cega=true --values localega/config/trace.yml
+helm install localega --set postgres.imageTag=10 --values localega/config/trace.yml
+
+```
+
+## Install fake CEGA
+
+When testing we can deploy a fake CentralEGA to takl to.
+
+```console
+helm install cega --namespace localega --values cega/config/trace.yml
 ```
 
 ## Uninstalling the Chart
