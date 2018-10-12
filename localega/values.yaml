@@ -10,6 +10,10 @@ config:
 #  broker_host: "localega-mq"
   broker_connection_attempts: 30
   broker_retry_delay: 10
+  cega_host: "cega-mq"
+  cega_queue: "lega"
+  cega_port: 5672
+  cega_username: "lega"
   eureka_endpoint: "http://localhost:8761"
   keyserver_endpoint: "'https://$KEYSERVER_HOST:$KEYSERVER_PORT/retrieve/%s/private'"
 #  keyserver_host: "0.0.0.0"

@@ -29,11 +29,19 @@ spec:
         imagePullPolicy: {{ .Values.mq.imagePullPolicy }}
         command: ["/script/mq.sh"]
         env:
-          - name: CEGA_CONNECTION
+          - name: CEGA_HOST
+            value: {{ .Values.config.cega_host | quote }}
+          - name: CEGA_PORT
+            value: {{ .Values.config.cega_port | quote }}
+          - name: CEGA_USERNAME
+            value: {{ .Values.config.cega_username | quote }}
+          - name: CEGA_QUEUE
+            value: {{ .Values.config.cega_queue | quote }}
+          - name: CEGA_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ template "localega.name" . }}-cega-url
-                key: url
+                name: {{ template "localega.name" . }}-cega-mq-pass
+                key: pass
         ports:
         - name: lega-mq
           containerPort: 15672
