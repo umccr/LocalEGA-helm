@@ -46,7 +46,7 @@ spec:
         - name: lega-mq
           containerPort: 15672
           protocol: TCP
-        - containerPort: 5672
+        - containerPort: {{.Values.mq.port}}
           name: amqp
         volumeMounts:
         - name: mq-entrypoint
