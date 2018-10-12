@@ -33,7 +33,6 @@ persistence:
     ##   set, choosing the default provisioner.
 
 secrets:
-  cega_address: ""
   cega_creds: ""
   cega_mq_pass: ""
   keys_password: ""
