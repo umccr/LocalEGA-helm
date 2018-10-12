@@ -29,9 +29,9 @@ spec:
         imagePullPolicy: {{ .Values.inbox.imagePullPolicy | quote }}
         env:
         - name: BROKER_HOST
-          value: mq.localega.svc.cluster.local
+          value: {{ if .Values.config.broker_host }}{{ .Values.config.broker_host | quote }}{{ else }}{{ template "localega.fullname" . }}-mq{{ end }}
         - name: INBOX_PORT
-          value: "2222"
+          value: {{ .Values.inbox.service.port | quote }}
         - name: CEGA_ENDPOINT
           value: http://cega-users/user/
         - name: CEGA_ENDPOINT_CREDS
