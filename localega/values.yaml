@@ -7,18 +7,18 @@ base:
   imagePullPolicy: Always
 
 config:
-#  broker_host: "localega-mq"
+#  broker_host: ""
   broker_connection_attempts: 30
   broker_retry_delay: 10
+  broker_username: "lega"
   cega_host: "cega-mq"
   cega_queue: "lega"
   cega_port: 5672
   cega_username: "lega"
   eureka_endpoint: "http://localhost:8761"
   keyserver_endpoint: "'https://$KEYSERVER_HOST:$KEYSERVER_PORT/retrieve/%s/private'"
-#  keyserver_host: "0.0.0.0"
-#  keyserver_port: 8443
-#  postgres_host: "localega-db"
+#  keyserver_host: ""
+#  postgres_host: ""
   postgres_try: 30
   postgres_user: "lega"
   vault_driver: "S3Storage"
@@ -89,6 +89,7 @@ mq:
   persistence:
     existingClaim: ""
     storageSize: 1Gi
+  port: 5672
 
 postgres:
   name: db
