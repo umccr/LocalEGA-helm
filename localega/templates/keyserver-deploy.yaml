@@ -30,8 +30,8 @@ spec:
         env:
         - name: EUREKA_ENDPOINT
           value: {{ .Values.config.eureka_endpoint | quote }}
-#        - name: KEYSERVER_HOST
-#          value: {{ if .Values.config.keyserver_host }}{{ .Values.config.keyserver_host | quote }}{{ else }}{{ template "localega.fullname" . }}-keys{{ end }}
+        - name: KEYSERVER_HOST
+          value: "0.0.0.0" # ip that the keyserver app should listen to.
         - name: KEYSERVER_PORT
           value: {{ .Values.keys.port | quote }}
         - name: POSTGRES_PASSWORD
