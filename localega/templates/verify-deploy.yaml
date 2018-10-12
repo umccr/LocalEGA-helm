@@ -33,12 +33,16 @@ spec:
           value: {{ if .Values.config.broker_host }}{{ .Values.config.broker_host | quote }}{{ else }}{{ template "localega.fullname" . }}-mq{{ end }}
         - name: BROKER_CONNECTION_ATTEMPTS
           value: {{ .Values.config.broker_connection_attempts | quote }}
+        - name: BROKER_PORT
+            value: {{.Values.mq.port | quote }}
         - name: BROKER_RETRY_DELAY
           value: {{ .Values.config.broker_retry_delay | quote }}
-        - name: POSTGRES_HOST
-          value: {{ if .Values.config.keyserver_host }}{{ .Values.config.keyserver_host | quote }}{{ else }}{{ template "localega.fullname" . }}-keys{{ end }}
         - name: KEYSERVER_ENDPOINT
           value: {{ .Values.config.keyserver_endpoint | quote }}
+        - name: KEYSERVER_HOST
+          value: {{ if .Values.config.keyserver_host }}{{ .Values.config.keyserver_host | quote }}{{ else }}{{ template "localega.fullname" . }}-keys{{ end }}
+        - name: KEYSERVER_PORT
+          value: {{ .Values.keys.port | quote }}
         - name: POSTGRES_HOST
           value: {{ if .Values.config.postgres_host }}{{ .Values.config.postgres_host | quote }}{{ else }}{{ template "localega.fullname" . }}-db{{ end }}
         - name: POSTGRES_PASSWORD
