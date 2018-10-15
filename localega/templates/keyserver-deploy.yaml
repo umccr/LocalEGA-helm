@@ -34,11 +34,6 @@ spec:
           value: "0.0.0.0" # ip that the keyserver app should listen to.
         - name: KEYSERVER_PORT
           value: {{ .Values.keys.port | quote }}
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: {{ template "localega.name" . }}-db-secret
-              key: postgres_password
         - name: LEGA_PASSWORD
           valueFrom:
             secretKeyRef:
