@@ -4,11 +4,19 @@ metadata:
   name: {{ template "localega.fullname" . }}-db
   labels:
     app: {{ template "localega.name" . }}-db
+  {{- if .Values.postgres.metrics.enabled }}
+    prometheus: kube-prometheus
+  {{- end }}
 spec:
   ports:
     - name: postgresql
       port: 5432
       targetPort: 5432
       protocol: TCP
+  {{- if .Values.postgres.metrics.enabled }}
+    - name: metrics
+      port: 9187
+      targetPort: 9187
+  {{- end }}
   selector:
     app: {{ template "localega.name" . }}-db

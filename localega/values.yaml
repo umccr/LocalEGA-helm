@@ -100,6 +100,15 @@ postgres:
     existingClaim: ""
     storageSize: 1Gi
   replicaCount: 1
+  metrics:
+    enabled: true
+    repository: wrouesnel/postgres_exporter
+    imageTag: v0.4.6
+    imagePullPolicy: IfNotPresent
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 100m
 
 verify:
   name: verify

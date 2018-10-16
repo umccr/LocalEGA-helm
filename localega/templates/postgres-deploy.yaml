@@ -69,6 +69,27 @@ spec:
             - postgres
           initialDelaySeconds: 5
           timeoutSeconds: 1
+      {{- if .Values.postgres.metrics.enabled }}
+      - name: metrics
+        image: "{{ .Values.postgres.metrics.repository }}:{{ .Values.postgres.metrics.imageTag }}"
+        imagePullPolicy: {{ default "" .Values.postgres.metrics.imagePullPolicy | quote }}
+        env:
+        - name: DATA_SOURCE_NAME
+          value: postgresql://{{ default "lega" .Values.postgres.metricsUser }}@127.0.0.1:5432?sslmode=disable
+        ports:
+        - name: metrics
+          containerPort: 9187
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: metrics
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: metrics
+        resources:
+  {{ toYaml .Values.postgres.metrics.resources | indent 10 }}
+      {{- end }}
       volumes:
       - name: initdb
         configMap:

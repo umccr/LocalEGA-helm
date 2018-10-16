@@ -1,0 +1,20 @@
+{{- if .Values.postgres.metrics.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: postges-prometheus
+  namespace: monitoring
+  labels:
+    prometheus: kube-prometheus
+spec:
+  jobLabel: {{ template "localega.name" . }}-db
+  selector:
+    matchLabels:
+      app: {{ template "localega.name" . }}-db
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace }}
+  endpoints:
+    - port: metrics
+      interval: 30s
+{{ end }}
