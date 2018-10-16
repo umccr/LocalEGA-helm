@@ -1,0 +1,20 @@
+{{- if .Values.mq.metrics.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: rabbitmq-prometheus
+  namespace: monitoring
+  labels:
+    prometheus: kube-prometheus
+spec:
+  jobLabel: {{ template "localega.name" . }}-mq
+  selector:
+    matchLabels:
+      app: {{ template "localega.name" . }}-mq
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace }}
+  endpoints:
+    - port: metrics
+      interval: 30s
+{{ end }}

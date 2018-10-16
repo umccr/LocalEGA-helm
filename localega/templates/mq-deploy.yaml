@@ -55,6 +55,38 @@ spec:
           mountPath: /etc/rabbitmq
         - name: mq-temp
           mountPath: /temp
+      {{- if .Values.mq.metrics.enabled }}
+      - name: metrics
+        image: "{{ .Values.mq.metrics.repository }}:{{ .Values.mq.metrics.imageTag }}"
+        imagePullPolicy: {{ .Values.mq.metrics.imagePullPolicy | quote }}
+        env:
+        - name: RABBIT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "localega.name" . }}-mq-pass
+              key: password
+        - name: RABBIT_URL
+          value: "http://localhost:15672"
+        - name: RABBIT_USER
+          value: {{ .Values.config.broker_username | quote }}
+        ports:
+        - name: metrics
+          containerPort: 9090
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: metrics
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: metrics
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+        resources:
+  {{ toYaml .Values.mq.metrics.resources | indent 10 }}
+      {{- end }}
       volumes:
       - name: mq-entrypoint
         configMap:

@@ -28,5 +28,10 @@ spec:
     name: epmd
   - port: 25672
     name: rabbitmq-dist
+  {{- if .Values.mq.metrics.enabled }}
+  - name: metrics
+    port: 9090
+    targetPort: 9090
+  {{- end }}
   selector:
     app: {{ template "localega.name" . }}-mq

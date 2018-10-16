@@ -37,6 +37,7 @@ persistence:
     ##   set, choosing the default provisioner.
 
 secrets:
+  mq_password: ""
   cega_creds: ""
   cega_mq_pass: ""
   keys_password: ""
@@ -90,6 +91,15 @@ mq:
     existingClaim: ""
     storageSize: 1Gi
   port: 5672
+  metrics:
+    enabled: true
+    repository: kbudde/rabbitmq-exporter
+    imageTag: v0.29.0
+    imagePullPolicy: IfNotPresent
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 100m
 
 postgres:
   name: db
