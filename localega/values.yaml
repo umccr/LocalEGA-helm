@@ -10,19 +10,19 @@ config:
 #  broker_host: ""
   broker_connection_attempts: 30
   broker_retry_delay: 10
-  broker_username: "guest"
+  broker_username: ""
   cega_endpoint_json: ""
   cega_host: "egatest.crg.eu"
   cega_mq_host: "hellgate.crg.eu"
-  cega_queue: "lega"
+  cega_queue: ""
   cega_port: 5672
-  cega_username: "lega"
+  cega_username: ""
   eureka_endpoint: "http://localhost:8761"
   keyserver_endpoint: "'https://$KEYSERVER_HOST:$KEYSERVER_PORT/retrieve/%s/private'"
 #  keyserver_host: ""
 #  postgres_host: ""
   postgres_try: 30
-  postgres_user: "lega"
+  postgres_user: ""
   vault_driver: "S3Storage"
   vault_url: ""
 
