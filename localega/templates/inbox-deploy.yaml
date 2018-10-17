@@ -47,6 +47,8 @@ spec:
             secretKeyRef:
               name: {{ template "localega.name" . }}-cega-creds
               key: credentials
+        - name: CEGA_ENDPOINT_JSON_PREFIX
+          value: {{ .Values.inbox.cega_endpoint_json | quote }}
         ports:
         - name: inbox
           containerPort: 2222

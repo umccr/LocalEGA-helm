@@ -12,6 +12,7 @@ config:
   broker_retry_delay: 10
   broker_username: "guest"
   cega_host: "cega-mq"
+  cega_endpoint_json: ""
   cega_queue: "lega"
   cega_port: 5672
   cega_username: "lega"
@@ -49,7 +50,7 @@ secrets:
 
 inbox:
   name: inbox
-  repository: nbisweden/ega-mina-inbox
+  repository: nbisweden/ega-inbox
   imageTag: latest
   imagePullPolicy: IfNotPresent
   inboxPath: ""
