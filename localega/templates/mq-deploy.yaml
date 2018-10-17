@@ -29,8 +29,8 @@ spec:
         imagePullPolicy: {{ .Values.mq.imagePullPolicy }}
         command: ["/script/mq.sh"]
         env:
-          - name: CEGA_HOST
-            value: {{ .Values.config.cega_host | quote }}
+          - name: CEGA_MQ_HOST
+            value: {{ if .Values.config.cega_mq_host }}{{ .Values.config.cega_mq_host | quote }}{{ else }}{{ template "cega.fullname" . }}-mq{{ end }}
           - name: CEGA_PORT
             value: {{ .Values.config.cega_port | quote }}
           - name: CEGA_USERNAME

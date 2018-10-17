@@ -40,8 +40,8 @@ spec:
           value: {{ .Values.config.broker_username | quote }}
         - name: INBOX_PORT
           value: {{ .Values.inbox.service.port | quote }}
-        - name: CEGA_ENDPOINT
-          value: http://cega-users/user/
+        - name: CEGA_ENDPOINT_USER
+          value: "https://$CEGA_HOST/lega/v1/users/"
         - name: CEGA_ENDPOINT_CREDS
           valueFrom:
             secretKeyRef:
@@ -49,6 +49,8 @@ spec:
               key: credentials
         - name: CEGA_ENDPOINT_JSON_PREFIX
           value: {{ .Values.inbox.cega_endpoint_json | quote }}
+        - name: CEGA_HOST
+          value: {{ if .Values.config.cega_host }}{{ .Values.config.cega_host | quote }}{{ else }}{{ template "cega.fullname" . }}-users{{ end }}
         ports:
         - name: inbox
           containerPort: 2222
