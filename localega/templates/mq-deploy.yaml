@@ -35,8 +35,8 @@ spec:
             value: {{ .Values.config.cega_port | quote }}
           - name: CEGA_USERNAME
             value: {{ .Values.config.cega_username | quote }}
-          - name: CEGA_QUEUE
-            value: {{ .Values.config.cega_queue | quote }}
+          - name: CEGA_VHOST
+            value: {{ .Values.config.cega_vhost | quote }}
           - name: CEGA_PASSWORD
             valueFrom:
               secretKeyRef:

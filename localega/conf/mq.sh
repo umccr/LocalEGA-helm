@@ -3,8 +3,8 @@
 set -e
 set -x
 
-[[ -z "${CEGA_HOST}" || -z "${CEGA_PASSWORD}" || -z "${CEGA_PORT}" || -z "${CEGA_QUEUE}" || -z "${CEGA_USERNAME}" ]] && echo 'Environment CEGA_CONNECTION is empty' 1>&2 && exit 1
-CEGA_CONNECTION="amqp://$CEGA_USERNAME:$CEGA_PASSWORD@$CEGA_HOST:$CEGA_PORT/$CEGA_QUEUE"
+[[ -z "${CEGA_MQ_HOST}" || -z "${CEGA_PASSWORD}" || -z "${CEGA_PORT}" || -z "${CEGA_VHOST}" || -z "${CEGA_USERNAME}" ]] && echo 'Environment CEGA_CONNECTION is empty' 1>&2 && exit 1
+CEGA_CONNECTION="amqp://$CEGA_USERNAME:$CEGA_PASSWORD@$CEGA_HOST:$CEGA_PORT/$CEGA_VHOST"
 
 # Initialization
 cp --remove-destination /temp/rabbitmq.config /etc/rabbitmq/rabbitmq.config
