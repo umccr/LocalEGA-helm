@@ -37,7 +37,7 @@ spec:
             value: {{ .Values.config.cega_username | quote }}
           - name: CEGA_VHOST
             value: {{ .Values.config.cega_vhost | quote }}
-          - name: CEGA_PASSWORD
+          - name: CEGA_MQ_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: {{ template "localega.name" . }}-cega-mq-pass
