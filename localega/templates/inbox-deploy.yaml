@@ -41,16 +41,16 @@ spec:
         - name: INBOX_PORT
           value: {{ .Values.inbox.service.port | quote }}
         - name: CEGA_ENDPOINT
-          value: {{ .Values.inbox.cega_endpoint | quote }}
+          value: {{ .Values.config.cega_endpoint | quote }}
+        - name: CEGA_ENDPOINT_JSON_PREFIX
+          value: {{ .Values.config.cega_endpoint_json | quote }}
         - name: CEGA_PASSWORD
           valueFrom:
             secretKeyRef:
               name: {{ template "localega.name" . }}-cega-creds
               key: credentials
-        - name: CEGA_ENDPOINT_JSON_PREFIX
-          value: {{ .Values.inbox.cega_endpoint_json | quote }}
         - name: CEGA_USERNAME
-          value: {{ .Values.inbox.cega_username | quote }}
+          value: {{ .Values.config.cega_username | quote }}
         ports:
         - name: inbox
           containerPort: 9000
