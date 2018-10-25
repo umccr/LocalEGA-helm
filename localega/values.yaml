@@ -18,7 +18,7 @@ config:
   cega_port: 5672
   cega_username: ""
   eureka_endpoint: "http://localhost:8761"
-  keyserver_endpoint: "'https://$KEYSERVER_HOST:$KEYSERVER_PORT/retrieve/%s/private'"
+  keyserver_endpoint: "/retrieve/%s/private"
 #  keyserver_host: ""
 #  postgres_host: ""
   postgres_try: 30

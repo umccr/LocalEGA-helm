@@ -40,7 +40,7 @@ spec:
         - name: BROKER_USERNAME
           value: {{ .Values.config.broker_username | quote }}
         - name: KEYSERVER_ENDPOINT
-          value: {{ .Values.config.keyserver_endpoint | quote }}
+          value: {{ if .Values.config.keyserver_host }}{{ .Values.config.keyserver_host }}{{ else }}https://{{ template "localega.fullname" . }}-keys{{ end }}:{{ .Values.keys.port}}{{ .Values.config.keyserver_endpoint}}
         - name: KEYSERVER_HOST
           value: {{ if .Values.config.keyserver_host }}{{ .Values.config.keyserver_host | quote }}{{ else }}{{ template "localega.fullname" . }}-keys{{ end }}
         - name: KEYSERVER_PORT
