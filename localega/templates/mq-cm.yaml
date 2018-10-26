@@ -9,8 +9,8 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  {{ ( .Files.Glob "config/rabbitmq.config" ).AsConfig | indent 2 }}
-  {{ ( .Files.Glob "config/defs.json" ).AsConfig | indent 2 }}
+{{ ( .Files.Glob "config/rabbitmq.config" ).AsConfig | indent 2 }}
+{{ ( .Files.Glob "config/defs.json" ).AsConfig | indent 2 }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -22,5 +22,5 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-    {{ ( .Files.Glob "conf/mq.sh" ).AsConfig | indent 2 }}
+{{ ( .Files.Glob "conf/mq.sh" ).AsConfig | indent 2 }}
 {{ end }}
