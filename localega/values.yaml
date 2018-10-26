@@ -15,7 +15,7 @@ config:
   cega_endpoint_json: "response.result"
   cega_mq_host: "hellgate.crg.eu"
   cega_vhost: ""
-  cega_port: 5672
+  cega_port: 5271
   cega_username: ""
   eureka_endpoint: "http://localhost:8761"
   keyserver_endpoint: "/retrieve/%s/private"
