@@ -28,6 +28,8 @@ spec:
     name: epmd
   - port: 25672
     name: rabbitmq-dist
+  - port: 15672
+    name: rabbit-ui
   {{- if .Values.mq.metrics.enabled }}
   - name: metrics
     port: 9090
