@@ -46,8 +46,10 @@ spec:
         - name: postgres
           containerPort: 5432
         volumeMounts:
-        - mountPath: /docker-entrypoint-initdb.d
-          name: initdb
+        - name: data
+          mountPath: /var/lib/postgresql/data
+        - name: initdb
+          mountPath: /docker-entrypoint-initdb.d
           readOnly: true
         livenessProbe:
           exec:
@@ -92,20 +94,23 @@ spec:
       {{- end }}
       volumes:
       - name: initdb
-        configMap:
-          name: {{ template "localega.name" . }}-initsql
-          items:
-          - key: main.sql
-            path: docker-entrypoint-initdb.d/01.sql
-          - key: download.sql
-            path: docker-entrypoint-initdb.d/02.sql
-          - key: qc.sql
-            path: docker-entrypoint-initdb.d/03.sql
-          - key: ebi.sql
-            path: docker-entrypoint-initdb.d/04.sql
-          - key: grants.sql
-            path: docker-entrypoint-initdb.d/05.sql
+        projected:
+          sources:
+          - configMap:
+              name: {{ template "localega.name" . }}-initsql
+              items:
+              - key: main.sql
+                path: 01.sql
+              - key: download.sql
+                path: 02.sql
+              - key: qc.sql
+                path: 03.sql
+              - key: ebi.sql
+                path: 04.sql
+              - key: grants.sql
+                path: 05.sql
       {{- if .Values.persistence.enabled }}
+      - name: data
         persistentVolumeClaim:
           claimName: {{ if .Values.postgres.persistence.existingClaim }}{{ else }}{{ template "localega.postgres.fullname" . }}{{ end }}
       {{- else }}
