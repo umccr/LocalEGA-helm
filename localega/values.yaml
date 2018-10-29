@@ -17,8 +17,6 @@ config:
   cega_vhost: ""
   cega_port: 5271
   cega_username: ""
-  eureka_endpoint: "http://localhost:8761"
-  keyserver_endpoint: "/retrieve/%s/private"
 #  keyserver_host: ""
 #  postgres_host: ""
   postgres_try: 30
@@ -76,6 +74,9 @@ ingest:
 
 keys:
   name: keys
+  repository: cscfi/ega-keyserver
+  imageTag: latest
+  imagePullPolicy: IfNotPresent
   replicaCount: 1
   port: 8443
 

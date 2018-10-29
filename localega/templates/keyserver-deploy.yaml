@@ -24,21 +24,27 @@ spec:
     spec:
       containers:
       - name: keyserver
-        image: "{{ .Values.base.image }}:{{ .Values.base.imageTag }}"
-        imagePullPolicy: {{ .Values.base.imagePullPolicy | quote }}
-        command: ["gosu","lega","ega-keyserver","--keys","/etc/ega/keys.ini"]
+        image: "{{ .Values.keys.repository }}:{{ .Values.keys.imageTag }}"
+        imagePullPolicy: {{ .Values.keys.imagePullPolicy | quote }}
         env:
-        - name: EUREKA_ENDPOINT
-          value: {{ .Values.config.eureka_endpoint | quote }}
-        - name: KEYSERVER_HOST
-          value: "0.0.0.0" # ip that the keyserver app should listen to.
-        - name: KEYSERVER_PORT
-          value: {{ .Values.keys.port | quote }}
-        - name: LEGA_PASSWORD
+        - name: SPRING_PROFILES_ACTIVE
+          value: no-oss
+        - name: EGA_KEY_PATH
+          value: /etc/ega/pgp/key.1
+        - name: EGA_KEYPASS_PATH
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "localega.name" . }}-keypass
+              key: password
+        - name: EGA_SHAREDPASS_PATH
           valueFrom:
             secretKeyRef:
               name: {{ template "localega.name" . }}-password
-              key: password
+              key: password 
+        - name: EGA_PUBLICKEY_URL
+          value: /etc/ega/ssl.key
+        - name: EGA_LEGACY_PATH
+          value:
         ports:
         - name: lega-keys
           containerPort: {{ .Values.keys.port }}
@@ -57,12 +63,6 @@ spec:
                     path: ssl.cert
                   - key: ssl.key
                     path: ssl.key
-                    mode: 0744
-            - configMap:
-                name: {{ template "localega.name" . }}-keyserver-config
-                items:
-                  - key: keys.ini
-                    path: keys.ini
                     mode: 0744
             - configMap:
                 name: {{ template "localega.name" . }}-keyserver-secret
