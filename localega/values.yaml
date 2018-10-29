@@ -18,6 +18,7 @@ config:
   cega_port: 5271
   cega_username: ""
 #  keyserver_host: ""
+  postgres_db_name: "lega"
 #  postgres_host: ""
   postgres_try: 30
   postgres_user: ""

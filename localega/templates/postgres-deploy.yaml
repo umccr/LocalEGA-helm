@@ -33,15 +33,9 @@ spec:
               name: {{ template "localega.name" . }}-db-config
               key: user
         - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: {{ template "localega.name" . }}-db-secret
-              key: postgres_password
+          value: {{ .Values.config.postgres_user }}
         - name: POSTGRES_DB
-          valueFrom:
-            configMapKeyRef:
-              name: {{ template "localega.name" . }}-db-config
-              key: dbname
+          value: {{ .Values.config.postgres_db_name }}
         ports:
         - name: postgres
           containerPort: 5432
