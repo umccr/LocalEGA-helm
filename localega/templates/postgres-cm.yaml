@@ -22,5 +22,5 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  {{ ( .Files.Glob "conf/db.sql" ).AsConfig | indent 2 }}
+{{ ( .Files.Glob "conf/*.sql" ).AsConfig | indent 2 }}
 {{ end }}

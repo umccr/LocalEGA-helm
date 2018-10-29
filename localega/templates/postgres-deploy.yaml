@@ -94,7 +94,17 @@ spec:
       - name: initdb
         configMap:
           name: {{ template "localega.name" . }}-initsql
-      - name: data
+          items:
+          - key: main.sql
+            path: docker-entrypoint-initdb.d/01.sql
+          - key: download.sql
+            path: docker-entrypoint-initdb.d/02.sql
+          - key: qc.sql
+            path: docker-entrypoint-initdb.d/03.sql
+          - key: ebi.sql
+            path: docker-entrypoint-initdb.d/04.sql
+          - key: grants.sql
+            path: docker-entrypoint-initdb.d/05.sql
       {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:
           claimName: {{ if .Values.postgres.persistence.existingClaim }}{{ else }}{{ template "localega.postgres.fullname" . }}{{ end }}

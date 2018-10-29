@@ -107,7 +107,7 @@ mq:
 postgres:
   name: db
   repository: postgres
-  imageTag: 9.6-alpine
+  imageTag: 10.5-alpine
   imagePullPolicy: IfNotPresent
   persistence:
     existingClaim: ""
