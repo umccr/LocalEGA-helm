@@ -23,7 +23,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: ingest
           image: "{{ .Values.base.image }}:{{ .Values.base.imageTag }}"
           imagePullPolicy: {{ .Values.base.imagePullPolicy | quote }}
           command: ["gosu", "lega", "ega-ingest"]
