@@ -37,10 +37,7 @@ spec:
               name: {{ template "localega.name" . }}-keypass
               key: password
         - name: EGA_SHAREDPASS_PATH
-          valueFrom:
-            secretKeyRef:
-              name: {{ template "localega.name" . }}-password
-              key: password 
+          value: /etc/ega/pgp/password
         - name: EGA_PUBLICKEY_URL
           value: /etc/ega/ssl.key
         - name: EGA_LEGACY_PATH
@@ -52,7 +49,12 @@ spec:
         volumeMounts:
         - name: keyserver-conf
           mountPath: /etc/ega
+        - name: res-shared-pass
+          mountPath: /etc/ega/pgp/
       volumes:
+        - name: res-shared-pass
+          secret:
+            secretName: {{ template "localega.name" . }}-password
         - name: keyserver-conf
           projected:
             sources:
