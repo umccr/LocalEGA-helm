@@ -124,6 +124,15 @@ postgres:
         memory: 256Mi
         cpu: 100m
 
+res:
+  name: res
+  repository: cscfi/ega-res
+  imageTag: latest
+  imagePullpolicy: IfNotPresent
+  replicaCount: 1
+  port: 9090
+  debug: 5058
+
 verify:
   name: verify
   replicaCount: 1
