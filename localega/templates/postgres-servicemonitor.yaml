@@ -1,4 +1,4 @@
-{{- if .Values.postgres.metrics.enabled }}
+{{- if (.Values.postgres.metrics.enabled) and .Values.postgres.deploy }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:

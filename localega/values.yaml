@@ -107,6 +107,7 @@ mq:
         cpu: 100m
 
 postgres:
+  deploy: true
   name: db
   repository: postgres
   imageTag: 10.5-alpine
