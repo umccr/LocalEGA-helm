@@ -74,6 +74,7 @@ ingest:
   replicaCount: 1
 
 keys:
+  deploy: true
   name: keys
   repository: cscfi/ega-keyserver
   imageTag: latest

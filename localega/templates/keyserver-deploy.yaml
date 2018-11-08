@@ -1,3 +1,4 @@
+{{ if .Values.keys.deploy }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -66,3 +67,4 @@ spec:
                 items:
                   - key: key.1.sec
                     path: pgp/key.1
+{{ end }}
