@@ -31,11 +31,6 @@ spec:
           value: no-oss
         - name: EGA_KEY_PATH
           value: /etc/ega/pgp/key.1
-        - name: EGA_KEYPASS_PATH
-          valueFrom:
-            secretKeyRef:
-              name: {{ template "localega.name" . }}-keypass
-              key: password
         - name: EGA_SHAREDPASS_PATH
           value: /etc/ega/pgp/password
         - name: EGA_PUBLICKEY_URL
