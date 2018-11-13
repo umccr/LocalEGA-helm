@@ -7,6 +7,7 @@ base:
   imagePullPolicy: Always
 
 config:
+  deploy: true
 #  broker_host: ""
   broker_connection_attempts: 30
   broker_retry_delay: 10
@@ -25,10 +26,6 @@ config:
   vault_driver: "S3Storage"
   vault_url: ""
 
-deploy:
-  config: true
-  secrets: true
-
 persistence: 
   enabled: true
 ## Persistent Volume Storage Class
@@ -38,6 +35,7 @@ persistence:
     ##   set, choosing the default provisioner.
 
 secrets:
+  deploy: true
   mq_password: ""
   cega_creds: ""
   cega_mq_pass: ""
