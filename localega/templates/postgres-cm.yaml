@@ -1,4 +1,4 @@
-{{ if .Values.deploy.config }}
+{{ if (.Values.config.deploy) and .Values.postgres.deploy }}
 apiVersion: v1
 kind: ConfigMap
 metadata:

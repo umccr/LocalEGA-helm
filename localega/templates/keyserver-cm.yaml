@@ -1,4 +1,4 @@
-{{ if (.Values.deploy.config) && .Values.keys.deploy }}
+{{ if (.Values.config.deploy) && .Values.keys.deploy }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
