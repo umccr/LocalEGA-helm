@@ -108,7 +108,7 @@ postgres:
   deploy: true
   name: db
   repository: postgres
-  imageTag: 10.5-alpine
+  imageTag: 10-alpine
   imagePullPolicy: IfNotPresent
   persistence:
     existingClaim: ""
