@@ -7,7 +7,7 @@ metadata:
 spec:
   ports:
   - name: res-app-port
-    port: {{ .Values.res.port }}
+    port: {{ .Values.res.servicePort }}
     targetPort: {{ .Values.res.port }}
     protocol: TCP
   - name: res-debug-port

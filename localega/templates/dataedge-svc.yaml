@@ -7,7 +7,7 @@ metadata:
 spec:
   ports:
   - name: dataedge
-    port: {{ .Values.dataedge.port }}
+    port: {{ .Values.dataedge.servicePort }}
     targetPort: {{ .Values.dataedge.port }}
     protocol: TCP
   - name: dataedge-debug

@@ -38,8 +38,9 @@ spec:
         ports:
         - name: dataedge
           containerPort: {{ .Values.dataedge.port }}
+          protocol: TCP
         livenessProbe:
           tcpSocket:
-            port: {{ .Values.dataedge.port }}
+            port: dataedge
           initialDelaySeconds: 60
-          periodSeconds: 60
+          periodSeconds: 30

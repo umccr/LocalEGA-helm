@@ -52,7 +52,8 @@ dataedge:
   repository: cscfi/ega-dataedge
   imageTag: "1.0"
   imagePullPolicy: Always
-  port: 9059
+  port: 8080
+  servicePort: 9059
   debug: 5058
   logpath: "/tmp/logs"
 
@@ -87,7 +88,8 @@ keys:
   imageTag: "1.0"
   imagePullPolicy: Always
   replicaCount: 1
-  port: 9095
+  port: 8080
+  servicePort: 9095
   debug: 5054
 
 mapper:
@@ -140,7 +142,8 @@ res:
   imageTag: "1.0"
   imagePullpolicy: IfNotPresent
   replicaCount: 1
-  port: 9090
+  port: 8080
+  servicePort: 9090
   debug: 5058
 
 verify:

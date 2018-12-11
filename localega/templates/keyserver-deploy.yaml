@@ -50,14 +50,14 @@ spec:
         - name: DB_URL
           value: {{ if .Values.config.postgres_host }}{{ .Values.config.postgres_host | quote }}{{ else }}{{ template "localega.fullname" . }}-db{{ end }}
         ports:
-        - name: lega-keys
+        - name: key-app-port
           containerPort: {{ .Values.keys.port }}
           protocol: TCP
         livenessProbe:
           tcpSocket:
-            port: {{ .Values.keys.port }}
-          initialDelaySeconds: 60
-          periodSeconds: 60
+            port: key-app-port
+          initialDelaySeconds: 120
+          periodSeconds: 30
         volumeMounts:
         - name: keyserver-conf
           mountPath: /etc/ega
