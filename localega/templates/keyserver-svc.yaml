@@ -8,9 +8,10 @@ metadata:
     role: keyserver
 spec:
   ports:
-  - port: 8443
-    targetPort: 8443
+  - port: {{ .Values.keys.port }}
+    targetPort: {{ .Values.keys.port }}
     protocol: TCP
+    name: key-app-port
   selector:
     app: {{ template "localega.name" . }}-keys
 {{ end }}

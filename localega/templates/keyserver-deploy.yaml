@@ -36,21 +36,42 @@ spec:
           value: /etc/ega/pgp/password
         - name: EGA_PUBLICKEY_URL
           value: /etc/ega/ssl.key
+        - name: EGA_KEYPASS_PATH
+          value: /tmp/password
         - name: EGA_LEGACY_PATH
           value:
+        - name: DB_USERNAME
+          value: {{ .Values.config.postgres_user | quote }}
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "localega.name" . }}-db-secret
+              key: postgres_password
+        - name: DB_URL
+          value: {{ if .Values.config.postgres_host }}{{ .Values.config.postgres_host | quote }}{{ else }}{{ template "localega.fullname" . }}-db{{ end }}
         ports:
         - name: lega-keys
           containerPort: {{ .Values.keys.port }}
           protocol: TCP
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.keys.port }}
+          initialDelaySeconds: 60
+          periodSeconds: 60
         volumeMounts:
         - name: keyserver-conf
           mountPath: /etc/ega
         - name: res-shared-pass
           mountPath: /etc/ega/pgp/
+        - name: ega-key-pass
+          mountPath: /tmp/
       volumes:
         - name: res-shared-pass
           secret:
             secretName: {{ template "localega.name" . }}-password
+        - name: ega-key-pass
+          secret:
+            secretName: {{ template "localega.name" . }}-keypass 
         - name: keyserver-conf
           projected:
             sources:

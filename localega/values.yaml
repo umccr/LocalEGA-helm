@@ -85,10 +85,11 @@ keys:
   deploy: true
   name: keys
   repository: cscfi/ega-keyserver
-  imageTag: latest
-  imagePullPolicy: IfNotPresent
+  imageTag: "1.0"
+  imagePullPolicy: Always
   replicaCount: 1
-  port: 8443
+  port: 9095
+  debug: 5054
 
 mapper:
   name: mapper
