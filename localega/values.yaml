@@ -60,7 +60,7 @@ inbox:
   name: inbox
   repository: nbisweden/ega-inbox
   imageTag: latest
-  imagePullPolicy: IfNotPresent
+  imagePullPolicy: Always
   inboxPath: ""
   replicaCount: 1
   persistence:
@@ -75,7 +75,6 @@ inbox:
   service:
     type: ClusterIP
     port: 2222
-
 
 ingest:
   name: ingest
