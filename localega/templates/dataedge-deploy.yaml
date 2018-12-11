@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "localega.fullname" . }}-dataedge
+  labels:
+    role: dataedge
+    app: {{ template "localega.name" . }}-dataegde
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: "{{ .Values.dataedge.name }}"
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.dataedge.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "localega.name" . }}-dataedge
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "localega.name" . }}-dataedge
+        role: dataedge
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: dataedge
+        image: "{{ .Values.dataedge.repository }}:{{ .Values.dataedge.imageTag }}"
+        imagePullPolicy: {{ .Values.dataedge.imagePullPolicy | quote }}
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: no-oss
+        - name: EGA_EGA_EXTERNAL_URL
+          value: "https://ega.ebi.ac.uk:8051/elixir/data/files/"
+        - name: EGA_EGA_CRAM_FASTA_A
+          value: "/homes/ega-prod/ngs_dev/Homo_sapiens_assembly38.fasta"
+        - name: EGA_EGA_CRAM_FASTA_B
+          value: "/homes/ega-prod/ngs_dev/Homo_sapiens_assembly38.fastb"
+        ports:
+        - name: dataedge
+          containerPort: {{ .Values.dataedge.port }}
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.dataedge.port }}
+          initialDelaySeconds: 60
+          periodSeconds: 60
