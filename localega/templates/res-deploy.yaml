@@ -62,9 +62,10 @@ spec:
         ports: 
         - containerPort: {{ .Values.res.port }}
           name: res-app-port
+          protocol: TCP
         livenessProbe:
           tcpSocket:
-            port: res-app-port
+            port: {{ .Values.res.port }}
           initialDelaySeconds: 60
           periodSeconds: 60
         volumeMounts:
