@@ -9,6 +9,6 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-{{ ( .Files.Glob "config/user.key" ).AsConfig | indent 2 }}
+{{ ( .Files.Glob "config/dummy.pub" ).AsConfig | indent 2 }}
 {{ ( .Files.Glob "conf/*" ).AsConfig | indent 2 }}
 {{ end }}

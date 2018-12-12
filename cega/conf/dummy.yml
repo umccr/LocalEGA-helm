@@ -1,0 +1,6 @@
+---
+username: dummy
+password_hash: $1$b0YnuEsc$8METjSpQmprwFwpxL0x7f0
+pubkey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNVuYNkgcBsPXh0yBHj1akzyp8EeTNgmSOSjBAhuzAhJBdVxz8oQDHbRRRhq1V4kILN+7nDKVl2yDPhiYTWalh+R9PQT88mGUaCuYBRpQWb16WgRTqLlMb02eT7M7T2cWsavb+ENg6R/ezbMxE8QaCx1pUWZebC1/Ov6lpArQfNOpGucsPoWnRiYiZmg57Qqp67Yic9W6ButyY58+D1fzl9zvwyRp1JdD5ZICfkp3xpZSQAn7a2wIATy2bhnznJZUHq9X1c9AiQggdIRLUT883KRdio7Md68BotNNXxwpnSvmN8ABlnCdC9tqiVnXeUz7/EVm26OcXtZZTUq/sbT3f
+uid: 1
+gecos: dummy user

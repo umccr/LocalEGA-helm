@@ -44,10 +44,10 @@ spec:
                 path: users.html
               - key: server.py
                 path: server.py
-              - key: ega-box-999.yml
-                path: users/ega-box-999.yml
-              - key: ega-box-999.yml
-                path: users/lega/ega-box-999.yml
-              - key: user.key
+              - key: dummy.yml
+                path: users/dummy.yml
+              - key: dummy.yml
+                path: users/lega/dummy.yml
+              - key: dummy.pub
                 path: pubkey
             defaultMode: 0744
