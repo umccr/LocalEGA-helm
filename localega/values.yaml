@@ -140,7 +140,7 @@ res:
   name: res
   repository: cscfi/ega-res
   imageTag: "1.0"
-  imagePullpolicy: IfNotPresent
+  imagePullpolicy: Always
   replicaCount: 1
   port: 8080
   servicePort: 9090
