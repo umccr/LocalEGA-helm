@@ -23,8 +23,8 @@ config:
   postgres_host: ""
   postgres_try: 30
   postgres_user: ""
-  vault_driver: "S3Storage"
-  vault_url: ""
+  data_storage_typ: "S3Storage"
+  data_storage_url: ""
 
 persistence: 
   enabled: true

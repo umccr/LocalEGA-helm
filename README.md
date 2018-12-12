@@ -65,8 +65,8 @@ Parameter | Description | Default
 `config.postgres_host` | Database hostname or IP address | `""`
 `config.postgres_try` | Database connection attempts | `30`
 `config.postgres_user` | Database username | `""`
-`config.vault_driver` | Backend storage type, `S3Storage` or `file` | `S3Storage`
-`config.vault_url` | URL to backed storage | `""`
+`config.data_storage_typ` | Backend storage type, `S3Storage` or `file` | `S3Storage`
+`config.data_storage_url` | URL to backed storage | `""`
 `persistence.enabled`| If true, create a Persistent Volume Claim for all services that require it| `true`
 `persistence.storageClass` | Storage Class for all Persistent volume Claims, use "local-storage" for local backed storage | `""`
 `secrets.deploy` | If true, deploy secrets | `true`
