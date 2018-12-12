@@ -57,6 +57,16 @@ dataedge:
   debug: 5058
   logpath: "/tmp/logs"
 
+filedatabase:
+  name: filedatabase
+  replicaCount: 1
+  repository: cscfi/ega-filedatabase
+  imageTag: "1.0"
+  imagePullPolicy: Always
+  port: 8080
+  servicePort: 9050
+  debug: 5050
+
 inbox:
   name: inbox
   repository: nbisweden/ega-inbox
