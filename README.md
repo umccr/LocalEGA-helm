@@ -14,7 +14,7 @@ Helm chart to deploy LocalEGA to any kubernetes cluster.
 
 Before deploying the Helm charts HELM should be initialized and the tiller installed, following [these](https://docs.helm.sh/using_helm#initialize-helm-and-install-tiller) instructions.
 
-When deploying for the first time you need to create the secrets using the `deploy.py` script from [LocalEGA-deploy-k8s](https://github.com/NBISweden/LocalEGA-deploy-k8s).
+When deploying a dev environment for the first time you need to create the secrets using the `deploy.py` script from [LocalEGA-deploy-k8s](https://github.com/NBISweden/LocalEGA-deploy-k8s).
 
 ```console
 python3 {/PATH/TO/LocalEGA-deploy-k8s}/auto/deploy.py --config-path localega/
@@ -39,7 +39,7 @@ helm install --namespace localega --set accessKey=s3_access,secretKey=s3_secret 
 You can install the Chart via Helm CLI:
 
 ```console
-helm install localega --namespace localega --values localega/config/trace.yml
+helm install --name localega --namespace localega --values localega/config/trace.yml localega/
 ```
 
 ### Configuration
@@ -50,12 +50,12 @@ Parameter | Description | Default
 --------- | ----------- | -------
 `base.repository` | LocalEGA container image repository | `nbisweden/ega-base`
 `base.imageTag` | LocalEGA container image tag | `latest`
-`base.imagePullPolicy` | LocalEGA container image pull policy | `Always`
+`base.imagePullPolicy` | LocalEGA container image pull policy | `IfNotPresent`
 `config.deploy` | If true, deploy ConfigMaps | `true`
 `config.broker_connection_attempts` | Connection attempts before timing out | `30`
 `config.broker_retry_delay` | time in seconds between each connection attempt | `10`
 `config.broker_username` | username for accessing local MQ service | `""`
-`config.cega_endpoint` | RUL to CEGA user service | `""`
+`config.cega_endpoint` | URL to CEGA user service | `""`
 `config.cega_endpoint_json` | Prefix in the JSON response that contains the user info| `response.result`
 `config.cega_mq_host` | CEGA MQ hostname | `""`
 `config.cega_vhost` | CEGA MQ vhost path | `""`
@@ -65,7 +65,7 @@ Parameter | Description | Default
 `config.postgres_host` | Database hostname or IP address | `""`
 `config.postgres_try` | Database connection attempts | `30`
 `config.postgres_user` | Database username | `""`
-`config.data_storage_typ` | Backend storage type, `S3Storage` or `file` | `S3Storage`
+`config.data_storage_type` | Backend storage type, `S3Storage` or `file` | `S3Storage`
 `config.data_storage_url` | URL to backed storage | `""`
 `persistence.enabled`| If true, create a Persistent Volume Claim for all services that require it| `true`
 `persistence.storageClass` | Storage Class for all Persistent volume Claims, use "local-storage" for local backed storage | `""`
@@ -75,8 +75,25 @@ Parameter | Description | Default
 `secrets.postgres_password` | Password to LocalEGA sql database | `""`
 `secrets.s3_access` | Access key to S3 storage | `""`
 `secrets.s3_secret` | Secret key to S3 storage  | `""`
+`dataedge.name` | dataedge conataimer name | `dataedge`
+`dataedge.replicaCount` | desired number of replicas | `1`
+`dataedge.repository` | dataedge container image repository | `cscfi/ega-dataedge`
+`dataedge.imageTag` | dataedge container image version | `"1.0"`
+`dataedge.imagePullPolicy` | dataedge container image pull policy | `IfNotPresent`
+`dataedge.port` | dataedge container port | `8080`
+`dataedge.servicePort` | dataedge service port | `9059`
+`dataedge.debug` | dataedge debug port | `5058`
+`dataedge.logpath` | dataedge log path | `"/tmp/logs"`
+`filedatabase.name` | filedatabase conataimer name | `filedatabase`
+`filedatabase.replicaCount` | desired number of replicas | `1`
+`filedatabase.repository` | filedatabase container image repository | `cscfi/ega-filedatabase`
+`filedatabase.imageTag` | filedatabase container image version | `"1.0"`
+`filedatabase.imagePullPolicy` | filedatabase container image pull policy | `IfNotPresent`
+`filedatabase.port` | filedatabase container port | `8080`
+`filedatabase.servicePort` | filedatabase service port | `9050`
+`filedatabase.debug` | filedatabase debug port | `5050`
 `inbox.name` | inbox container name | `inbox`
-`inbox.repository` | inbox container image repository | `nbisweden/ega-mina-inbox`
+`inbox.repository` | inbox container image repository | `nbisweden/ega-inbox`
 `inbox.imageTag` | inbox container image version | `latest`
 `inbox.imagePullPolicy` | inbox container image pull policy | `IfNotPresent`
 `inbox.inboxPath` | Path on mounted volume for inbox data | `/`
@@ -87,7 +104,7 @@ Parameter | Description | Default
 `ingest.replicaCount` | desired number of ingest workers | `1`
 `keys.deploy` | Set to false if using a external keyserver | `true`
 `keys.repository` | Keyserver container image repository | `cscfi/ega-keyserver`
-`keys.imageTag` | Keyserver container image version | `latest`
+`keys.imageTag` | Keyserver container image version | `"1.0"`
 `keys.imagePullPolicy` | Keyserver container image pull policy | `IfNotPresent`
 `keys.port` | Keyserver port | `8443`
 `mq.name` | rabbitmq container name | `rabbitmq`
@@ -114,10 +131,16 @@ Parameter | Description | Default
 `postgres.metrics.repository` | postgreSQL metrics exporter repository | `wrouesnel/postgres_exporter`
 `postgres.metrics.imageTag` | postgreSQL metrics exporter version | `v0.4.6`
 `postgres.metrics.imagePullPolicy` | postgreSQL metrics exporter image pull policy | `IfNotPresent`
+`res.name` | RES container name | `res`
 `res.repository`| RES container image repository | `cscfi/ega-res`
-`res.imageTag`| RES container image version | `latest`
+`res.imageTag`| RES container image version | `"1.0"`
 `res.imagePullPolicy`| RES container image pull policy | `IfNotPresent`
 `res.replicaCount`| desired number of RES containers | `1`
+`res.port` | res container port | `8080`
+`res.servicePort` | res service port | `9090`
+`res.debug` | res debug port | `5058`
+`verify.name` | verify container name | `verify`
+`verify.replicaCount`| desired number of verify containers | `1`
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
@@ -128,10 +151,10 @@ helm install localega --set postgres.imageTag=10 --values localega/config/trace.
 
 ## Install fake CEGA
 
-When testing we can deploy a fake CentralEGA to takl to.
+When testing we can deploy a fake CentralEGA to talk to.
 
 ```console
-helm install cega --namespace localega --values cega/config/trace.yml
+helm install cega --namespace localega --values localega/config/trace.yml cega/
 ```
 
 ## Uninstalling the Chart
