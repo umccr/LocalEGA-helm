@@ -95,15 +95,15 @@ spec:
               name: {{ template "localega.name" . }}-initsql
               items:
               - key: main.sql
-                path: 01.sql
+                path: 01_main.sql
               - key: download.sql
-                path: 02.sql
+                path: 02_download.sql
               - key: qc.sql
-                path: 03.sql
+                path: 03_qc.sql
               - key: ebi.sql
-                path: 04.sql
+                path: 04_ebi.sql
               - key: grants.sql
-                path: 05.sql
+                path: 05_grants.sql
       {{- if .Values.persistence.enabled }}
       - name: data
         persistentVolumeClaim:
