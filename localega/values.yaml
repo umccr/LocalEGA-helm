@@ -117,7 +117,7 @@ mq:
     storageSize: 1Gi
   port: 5672
   metrics:
-    enabled: true
+    enabled: false
     repository: kbudde/rabbitmq-exporter
     imageTag: v0.29.0
     imagePullPolicy: IfNotPresent
@@ -137,7 +137,7 @@ postgres:
     storageSize: 1Gi
   replicaCount: 1
   metrics:
-    enabled: true
+    enabled: false
     repository: wrouesnel/postgres_exporter
     imageTag: v0.4.6
     imagePullPolicy: IfNotPresent
