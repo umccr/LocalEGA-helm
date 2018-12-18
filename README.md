@@ -26,7 +26,7 @@ python3 {/PATH/TO/LocalEGA-deploy-k8s}/auto/deploy.py --config-path localega/
 ### Optional, add S3 storage
 
 LocalEGA relies on a S3 type backend storage as data archive.  
-If the kubernetes environment doesn't supply a S3 storage it can be added using either [minio](https://www.minio.io/) or [ceph](https://www.ceph.org).
+If the kubernetes environment doesn't supply a S3 storage it can be added using either [minio](https://www.minio.io/) or [ceph](https://www.ceph.com).
 
 #### Minio
 
@@ -157,7 +157,7 @@ helm install localega --set postgres.imageTag=10 --values localega/config/trace.
 When testing we can deploy a fake CentralEGA to talk to.
 
 ```console
-helm install cega --namespace localega --values localega/config/trace.yml cega/
+helm install --name cega --namespace localega --values localega/config/trace.yml cega/
 ```
 
 ## Uninstalling the Chart
