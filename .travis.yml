@@ -43,11 +43,16 @@ script:
 # Verify That helm is active
 - helm version
 # install minio
-- helm install --name minio --set accessKey=$MINIO_ACCESS,secretKey=$MINIO_SECRET stable/minio
+- helm install --name minio --set accessKey="$MINIO_ACCESS",secretKey="$MINIO_SECRET",persistence.size="2Gi" stable/minio
+- sleep 10
+# Wait for cega to become ready
+- until kubectl get pods -l app=minio | grep -q "Running"; do sleep 1;echo "waiting for minio to be available"; kubectl get pods; done
 # Verify minio status
 - helm status minio
+- kubectl get pods 
 # Install fake CEGA
-- helm install --name cega cega/ --set secrets.cega_creds=$CEGA_CREDS --debug
+- helm install --name cega cega/ --set secrets.cega_creds=$CEGA_CREDS,persistence.enabled=false
 - sleep 10
 # Wait for cega to become ready
 - until kubectl get pods -l app=cega-mq | grep -q "Running"; do sleep 1;echo "waiting for cega-mq to be available"; kubectl get pods; done
+- helm status cega
