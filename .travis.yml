@@ -47,4 +47,7 @@ script:
 # Verify minio status
 - helm status minio
 # Install fake CEGA
-- helm install --name cega cega/ --set .secrets.cega_creds=$CEGA_CREDS
+- helm install --name cega cega/ --set secrets.cega_creds=$CEGA_CREDS --debug
+- sleep 10
+# Wait for cega to become ready
+- until kubectl get pods -l app=cega-mq | grep -q "Running"; do sleep 1;echo "waiting for cega-mq to be available"; kubectl get pods; done
