@@ -46,3 +46,5 @@ script:
 - helm install --name minio --set accessKey=$MINIO_ACCESS,secretKey=$MINIO_SECRET stable/minio
 # Verify minio status
 - helm status minio
+# Install fake CEGA
+- helm install --name cega cega/ --set .secrets.cega_creds=$CEGA_CREDS
