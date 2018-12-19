@@ -36,7 +36,6 @@ persistence:
 
 secrets:
   deploy: true
-  mq_password: ""
   cega_creds: ""
   cega_mq_pass: ""
   keys_password: ""
