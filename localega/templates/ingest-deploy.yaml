@@ -68,7 +68,7 @@ spec:
                 name: {{ template "localega.name" . }}-s3-keys
                 key: secret_key
           - name: VAULT_DRIVER
-            value: {{ .Values.config.data_storage_typ | quote }}
+            value: {{ .Values.config.data_storage_type | quote }}
           - name: VAULT_URL
             value: {{ required "A valid .Values.config.data_storage_url entry required!" .Values.config.data_storage_url | quote }}
           volumeMounts:

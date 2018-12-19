@@ -23,7 +23,7 @@ config:
   postgres_host: ""
   postgres_try: 30
   postgres_user: ""
-  data_storage_typ: "S3Storage"
+  data_storage_type: "S3Storage"
   data_storage_url: ""
 
 persistence: 
