@@ -41,7 +41,7 @@ spec:
         - name: INBOX_PORT
           value: {{ .Values.inbox.service.port | quote }}
         - name: CEGA_ENDPOINT
-          value: {{ .Values.config.cega_endpoint | quote }}
+          value: {{ required "A valid .values.config.cega_endpoint URL are required" .Values.config.cega_endpoint | quote }}
         - name: CEGA_ENDPOINT_JSON_PREFIX
           value: {{ .Values.config.cega_endpoint_json | quote }}
         - name: CEGA_PASSWORD
