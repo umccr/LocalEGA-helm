@@ -36,6 +36,11 @@ spec:
             value: {{ .Values.config.broker_retry_delay | quote }}
           - name: BROKER_USERNAME
             value: {{ .Values.config.broker_username | quote }}
+          - name: BROKER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "localega.name" . }}-mq-pass
+                key: password
           - name: LEGA_PASSWORD
             valueFrom:
               secretKeyRef:
