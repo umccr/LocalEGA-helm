@@ -49,7 +49,7 @@ dataedge:
   name: dataedge
   replicaCount: 1
   repository: cscfi/ega-dataedge
-  imageTag: "1.0"
+  imageTag: "latest"
   imagePullPolicy: Always
   port: 8080
   servicePort: 9059
@@ -94,7 +94,7 @@ keys:
   deploy: true
   name: keys
   repository: cscfi/ega-keyserver
-  imageTag: "1.0"
+  imageTag: "latest"
   imagePullPolicy: Always
   replicaCount: 1
   port: 8080
@@ -148,7 +148,7 @@ postgres:
 res:
   name: res
   repository: cscfi/ega-res
-  imageTag: "1.0"
+  imageTag: "latest"
   imagePullPolicy: Always
   replicaCount: 1
   port: 8080
