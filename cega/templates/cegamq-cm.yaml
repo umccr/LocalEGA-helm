@@ -9,7 +9,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-{{ ( .Files.Glob "config/cega.*" ).AsConfig | indent 2 }}
+{{ ( .Files.Glob "conf/cega.*" ).AsConfig | indent 2 }}
 ---
 apiVersion: v1
 kind: ConfigMap

@@ -14,15 +14,7 @@ persistence:
   enabled: true
 
 secrets:
-  cega_address: ""
   cega_creds: ""
-  cega_mq_pass: ""
-  keys_password: ""
-  lega_password: ""
-  mq_password: ""
-  postgres_password: ""
-  s3_access: ""
-  s3_secret: ""
 
 mq:
   name: mq
