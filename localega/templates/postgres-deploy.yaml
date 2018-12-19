@@ -29,12 +29,12 @@ spec:
         imagePullPolicy: {{ .Values.postgres.imagePullPolicy | quote }}
         env:
         - name: POSTGRES_USER
-          valueFrom:
-            configMapKeyRef:
-              name: {{ template "localega.name" . }}-db-config
-              key: user
-        - name: POSTGRES_PASSWORD
           value: {{ .Values.config.postgres_user }}
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+              secretKeyRef:
+                name: {{ template "localega.name" . }}-db-secret
+                key: postgres_password
         - name: POSTGRES_DB
           value: {{ .Values.config.postgres_db_name }}
         ports:
@@ -104,8 +104,8 @@ spec:
                 path: 04_ebi.sql
               - key: grants.sql
                 path: 05_grants.sql
-      {{- if .Values.persistence.enabled }}
       - name: data
+      {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:
           claimName: {{ if .Values.postgres.persistence.existingClaim }}{{ else }}{{ template "localega.postgres.fullname" . }}{{ end }}
       {{- else }}
