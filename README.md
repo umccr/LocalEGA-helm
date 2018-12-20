@@ -34,7 +34,7 @@ See the [documentation](https://github.com/helm/charts/tree/master/stable/minio)
 More specifically the size of each backing volume and if minio should run in distributed mode or not.
 
 ```console
-helm install --namespace localega --set accessKey=s3_access,secretKey=s3_secret stable/minio
+helm install --namespace localega --set accessKey=S3_access,secretKey=S3_secret,minioConfig.region=S3_region stable/minio
 ```
 
 ## Installing the Chart
