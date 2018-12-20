@@ -31,13 +31,13 @@ spec:
         - name: SPRING_PROFILES_ACTIVE
           value: no-oss
         - name: EGA_KEY_PATH
-          value: /etc/ega/pgp/key.1
+          value: /etc/ega/key.1.sec
         - name: EGA_SHAREDPASS_PATH
           value: /etc/ega/pgp/password
         - name: EGA_PUBLICKEY_URL
           value: /etc/ega/ssl.key
         - name: EGA_KEYPASS_PATH
-          value: /tmp/password
+          value: /etc/ega/key/password
         - name: EGA_LEGACY_PATH
           value:
         - name: DB_USERNAME
@@ -62,9 +62,9 @@ spec:
         - name: keyserver-conf
           mountPath: /etc/ega
         - name: res-shared-pass
-          mountPath: /etc/ega/pgp/
+          mountPath: /etc/ega/pgp
         - name: ega-key-pass
-          mountPath: /tmp/
+          mountPath: /etc/ega/key
       volumes:
         - name: res-shared-pass
           secret:
@@ -87,5 +87,5 @@ spec:
                 name: {{ template "localega.name" . }}-keyserver-secret
                 items:
                   - key: key.1.sec
-                    path: pgp/key.1
+                    path: key.1.sec
 {{ end }}
