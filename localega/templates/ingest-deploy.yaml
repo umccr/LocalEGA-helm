@@ -74,9 +74,6 @@ spec:
           volumeMounts:
           - name: inbox
             mountPath: /ega/inbox
-          ports:
-          - name: inbox
-            containerPort: {{ .Values.inbox.service.port }}
       restartPolicy: Always
       volumes:
       - name: inbox
