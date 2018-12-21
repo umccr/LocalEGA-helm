@@ -23,6 +23,7 @@ spec:
         app: {{ template "localega.name" . }}-inbox
         role: inbox
         release: {{ .Release.Name }}
+        type: ssh-inbox
     spec:
       containers:
       - name: inbox
