@@ -82,6 +82,7 @@ inbox:
       fsType: ceph
       fsName: sharedfs
       clusterNamespace: rook-ceph
+  port: 9000
   service:
     type: ClusterIP
     port: 2222
