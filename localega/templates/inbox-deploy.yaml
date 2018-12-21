@@ -1,3 +1,4 @@
+{{ if eq "nbisweden/ega-inbox" .Values.inbox.repository }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -38,19 +39,15 @@ spec:
           value: {{ .Values.config.broker_retry_delay | quote }}
         - name: BROKER_USERNAME
           value: {{ .Values.config.broker_username | quote }}
-        - name: INBOX_PORT
-          value: {{ .Values.inbox.service.port | quote }}
         - name: CEGA_ENDPOINT
           value: {{ required "A valid .values.config.cega_endpoint URL are required" .Values.config.cega_endpoint | quote }}
         - name: CEGA_ENDPOINT_JSON_PREFIX
           value: {{ .Values.config.cega_endpoint_json | quote }}
-        - name: CEGA_PASSWORD
+        - name: CEGA_ENDPOINT_CREDS
           valueFrom:
             secretKeyRef:
               name: {{ template "localega.name" . }}-cega-creds
               key: credentials
-        - name: CEGA_USERNAME
-          value: {{ .Values.config.cega_username | quote }}
         ports:
         - name: inbox
           containerPort: 9000
@@ -82,3 +79,4 @@ spec:
       {{ else}}
         emptyDir: {}
       {{ end }}
+{{ end }}
