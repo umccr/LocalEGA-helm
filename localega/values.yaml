@@ -81,12 +81,12 @@ inbox:
   persistence:
     existingClaim: ""
     storageSize: 1Gi
-    storageClass: flexVolume
+    storageClass: ""
     flexVolume:
-      driver: ceph.rook.io/rook
-      fsType: ceph
-      fsName: sharedfs
-      clusterNamespace: rook-ceph
+      driver: "" #ceph.rook.io/rook
+      fsType: "" #ceph
+      fsName: "" #sharedfs
+      clusterNamespace: "" #rook-ceph
   port: 9000
   service:
     type: ClusterIP
