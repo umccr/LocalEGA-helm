@@ -87,6 +87,9 @@ inbox:
       fsType: "" #ceph
       fsName: "" #sharedfs
       clusterNamespace: "" #rook-ceph
+    nfs:
+      server: ""
+      path: ""
   port: 9000
   service:
     type: ClusterIP
