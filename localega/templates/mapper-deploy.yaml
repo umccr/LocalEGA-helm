@@ -50,4 +50,6 @@ spec:
           value: {{ .Values.config.postgres_try | quote }}
         - name: POSTGRES_USER
           value: {{ .Values.config.postgres_user | quote }}
+        resources:
+{{ toYaml .Values.mapper.resources | indent 10 }}
       restartPolicy: Always

@@ -28,6 +28,8 @@ spec:
       - name: postgresql
         image: "{{ .Values.postgres.repository }}:{{ .Values.postgres.imageTag }}"
         imagePullPolicy: {{ .Values.postgres.imagePullPolicy | quote }}
+        resources:
+{{ toYaml .Values.postgres.resources | indent 10 }}
         env:
         - name: POSTGRES_USER
           value: {{ .Values.config.postgres_user }}

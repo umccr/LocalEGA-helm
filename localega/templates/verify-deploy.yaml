@@ -76,4 +76,6 @@ spec:
             secretKeyRef:
               name: {{ template "localega.name" . }}-s3-keys
               key: secret_key
+        resources:
+{{ toYaml .Values.verify.resources | indent 10 }}
       restartPolicy: Always

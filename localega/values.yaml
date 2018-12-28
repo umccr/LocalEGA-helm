@@ -52,10 +52,17 @@ secrets:
 
 dataedge:
   name: dataedge
-  replicaCount: 1
   repository: cscfi/ega-dataedge
   imageTag: "latest"
   imagePullPolicy: Always
+  replicaCount: 1
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "1024Mi"
+      cpu: "500m"
   port: 8080
   servicePort: 9059
   debug: 5058
@@ -63,10 +70,17 @@ dataedge:
 
 filedatabase:
   name: filedatabase
-  replicaCount: 1
   repository: cscfi/ega-filedatabase
   imageTag: "1.0"
   imagePullPolicy: Always
+  replicaCount: 1
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "1024Mi"
+      cpu: "500m"
   port: 8080
   servicePort: 9050
   debug: 5050
@@ -78,6 +92,13 @@ inbox:
   imagePullPolicy: Always
   inboxPath: ""
   replicaCount: 1
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "256Mi"
+      cpu: "250m"
   persistence:
     existingClaim: ""
     storageSize: 1Gi
@@ -98,6 +119,13 @@ inbox:
 ingest:
   name: ingest
   replicaCount: 1
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "256Mi"
+      cpu: "250m"
 
 keys:
   deploy: true
@@ -106,6 +134,13 @@ keys:
   imageTag: "latest"
   imagePullPolicy: Always
   replicaCount: 1
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "1024Mi"
+      cpu: "500m"
   port: 8080
   servicePort: 9095
   debug: 5054
@@ -113,6 +148,13 @@ keys:
 mapper:
   name: mapper
   replicaCount: 1
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "256Mi"
+      cpu: "250m"
 
 mq:
   name: mq
@@ -120,6 +162,13 @@ mq:
   imageTag: 3.6-management-alpine
   imagePullPolicy: IfNotPresent
   replicaCount: 1
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "256Mi"
+      cpu: "250m"
   persistence:
     existingClaim: ""
     storageSize: 1Gi
@@ -144,6 +193,13 @@ postgres:
     existingClaim: ""
     storageSize: 1Gi
   replicaCount: 1
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "256Mi"
+      cpu: "250m"
   metrics:
     enabled: false
     repository: wrouesnel/postgres_exporter
@@ -160,6 +216,13 @@ res:
   imageTag: "latest"
   imagePullPolicy: Always
   replicaCount: 1
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "1024Mi"
+      cpu: "500m"
   port: 8080
   servicePort: 9090
   debug: 5058
@@ -167,3 +230,10 @@ res:
 verify:
   name: verify
   replicaCount: 1
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "256Mi"
+      cpu: "250m"

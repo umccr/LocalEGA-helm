@@ -48,3 +48,5 @@ spec:
             port: filedatabase
           initialDelaySeconds: 60
           periodSeconds: 30
+        resources:
+{{ toYaml .Values.filedatabase.resources | indent 10 }}

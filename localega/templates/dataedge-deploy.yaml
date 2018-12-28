@@ -45,3 +45,5 @@ spec:
             port: dataedge
           initialDelaySeconds: 60
           periodSeconds: 30
+        resources:
+{{ toYaml .Values.dataedge.resources | indent 10 }}

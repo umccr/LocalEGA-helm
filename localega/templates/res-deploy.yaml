@@ -27,6 +27,8 @@ spec:
       - name: res
         image: "{{ .Values.res.repository }}:{{ .Values.res.imageTag }}"
         imagePullPolicy: {{ .Values.res.imagePullPolicy | quote }}
+        resources:
+{{ toYaml .Values.res.resources | indent 10 }}
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: no-oss,LocalEGA

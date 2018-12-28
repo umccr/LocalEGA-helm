@@ -59,6 +59,8 @@ spec:
             port: key-app-port
           initialDelaySeconds: 120
           periodSeconds: 30
+        resources:
+{{ toYaml .Values.keys.resources | indent 10 }}
         volumeMounts:
         - name: keyserver-conf
           mountPath: /etc/ega

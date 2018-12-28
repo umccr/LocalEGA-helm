@@ -57,6 +57,8 @@ spec:
         volumeMounts:
         - name: lega-inbox
           mountPath: /ega/inbox
+        resources:
+{{ toYaml .Values.inbox.resources | indent 10 }}
       volumes:
       - name: lega-inbox
       {{- if .Values.persistence.enabled }}

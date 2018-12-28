@@ -28,6 +28,8 @@ spec:
           image: "{{ .Values.base.image }}:{{ .Values.base.imageTag }}"
           imagePullPolicy: {{ .Values.base.imagePullPolicy | quote }}
           command: ["gosu", "lega", "ega-ingest"]
+          resources:
+{{ toYaml .Values.ingest.resources | indent 10 }}
           env:
           - name: BROKER_CONNECTION_ATTEMPTS
             value: {{ .Values.config.broker_connection_attempts | quote }}
