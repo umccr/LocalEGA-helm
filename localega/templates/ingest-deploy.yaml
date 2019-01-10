@@ -25,9 +25,8 @@ spec:
     spec:
       containers:
         - name: ingest
-          image: "{{ .Values.base.image }}:{{ .Values.base.imageTag }}"
-          imagePullPolicy: {{ .Values.base.imagePullPolicy | quote }}
-          command: ["gosu", "lega", "ega-ingest"]
+          image: "{{ .Values.ingest.repository }}:{{ .Values.ingest.imageTag }}"
+          imagePullPolicy: {{ .Values.ingest.imagePullPolicy | quote }}
           resources:
 {{ toYaml .Values.ingest.resources | indent 10 }}
           env:

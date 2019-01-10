@@ -25,9 +25,8 @@ spec:
     spec:
       containers:
       - name: mapper
-        image: "{{ .Values.base.image }}:{{ .Values.base.imageTag }}"
-        imagePullPolicy: {{ .Values.base.imagePullPolicy | quote }}
-        command: ["gosu", "lega", "ega-id-mapper"]
+        image: "{{ .Values.mapper.repository }}:{{ .Values.mapper.imageTag }}"
+        imagePullPolicy: {{ .Values.mapper.imagePullPolicy | quote }}
         env:
         - name: BROKER_CONNECTION_ATTEMPTS
           value: {{ .Values.config.broker_connection_attempts | quote }}
