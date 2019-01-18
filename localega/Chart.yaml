@@ -1,9 +1,0 @@
-appVersion: "1.0"
-description: Local EGA
-home: http://localega.readthedocs.io
-icon: https://nbis.se/assets/img/logos/nbislogo-green.svg
-maintainers:
-name: localega
-sources:
-- https://github.com/NBISweden/LocalEGA-helm
-version: 0.1.0
