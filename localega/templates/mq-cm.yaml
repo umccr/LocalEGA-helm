@@ -1,4 +1,8 @@
 {{ if .Values.config.deploy }}
+{{- $mqconf := .Files.Glob "config/rabbitmq.config" }}
+{{ if $mqconf }}
+{{- $mqdef := .Files.Glob "config/defs.json" }}
+{{ if $mqdef }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -9,8 +13,10 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-{{ ( .Files.Glob "config/rabbitmq.config" ).AsConfig | indent 2 }}
-{{ ( .Files.Glob "config/defs.json" ).AsConfig | indent 2 }}
+{{ ( $mqconf ).AsConfig | indent 2 }}
+{{ ( $mqdef ).AsConfig | indent 2 }}
+{{ end }}
+{{ end }}
 ---
 apiVersion: v1
 kind: ConfigMap

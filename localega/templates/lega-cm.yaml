@@ -1,4 +1,6 @@
 {{ if .Values.config.deploy }}
+{{- $globfiles := .Files.Glob "config/ssl.*" }}
+{{ if $globfiles }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -9,6 +11,6 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-{{ ( .Files.Glob "config/ssl.cert" ).AsConfig | indent 2 }}
-{{ ( .Files.Glob "config/ssl.key" ).AsConfig | indent 2 }}
+{{ ( $globfiles ).AsConfig | indent 2 }}
+{{ end }}
 {{ end }}

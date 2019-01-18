@@ -31,7 +31,7 @@ spec:
         command: ["/script/mq.sh"]
         env:
           - name: CEGA_MQ_HOST
-            value: {{ if .Values.config.cega_mq_host }}{{ .Values.config.cega_mq_host | quote }}{{ else }}{{ template "cega.fullname" . }}-mq{{ end }}
+            value: {{ required "A valid .Values.config.cega_mq_host is required" .Values.config.cega_mq_host }}
           - name: CEGA_PORT
             value: {{ .Values.config.cega_port | quote }}
           - name: CEGA_USERNAME
