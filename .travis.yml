@@ -106,7 +106,7 @@ jobs:
       env:
         - TARGET_BR=gh-pages
         - REPO_DIR=/home/travis/build/NBISweden/LocalEGA-helm
-        - GH_URL=https://nbisweden.github.io/LocalEGA-helm/index.yaml
+        - GH_URL=https://nbisweden.github.io/LocalEGA-helm/
       install:
         # Installing Helm
         - curl https://raw.githubusercontent.com/kubernetes/helm/v2.12.2/scripts/get > get_helm.sh && chmod 700 get_helm.sh && ./get_helm.sh
