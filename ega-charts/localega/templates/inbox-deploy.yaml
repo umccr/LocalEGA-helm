@@ -98,6 +98,7 @@ spec:
           claimName: {{ .Values.inbox.existingClaim }}
         {{ end }}
       {{ else}}
-        emptyDir: {}
+        hostPath:
+          path: {{ .Values.inbox.location | quote }}
       {{ end }}
 {{ end }}

@@ -120,6 +120,7 @@ inbox:
     nfs:
       server: ""
       path: ""
+  location: "/ega/inbox" # path to inbox volume
   port: 9000
   service:
     type: ClusterIP
@@ -138,6 +139,10 @@ ingest:
     limits:
       memory: "256Mi"
       cpu: "250m"
+## co-locate inbox with ingest
+# If the deployment requires the use of hostPath volumes for the shared filesystem
+# that is used by inbox and ingest, set coLocateInbox: true
+  coLocateInbox: false
 
 keys:
   deploy: true
