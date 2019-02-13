@@ -67,6 +67,8 @@ spec:
             secretKeyRef:
               name: {{ template "localega.name" . }}-cega-creds
               key: credentials
+        - name: INBOX_LOCATION
+          value: "/ega/inbox/%s/"
         ports:
         - name: inbox
           containerPort: 9000
