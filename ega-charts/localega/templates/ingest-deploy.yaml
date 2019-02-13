@@ -109,7 +109,7 @@ spec:
           value: {{ required "A valid .Values.config.data_storage_url entry required!" .Values.config.data_storage_url | quote }}
 {{ else if eq "FileStorage" .Values.config.data_storage_type}}
         - name: VAULT_LOCATION
-          value: {{ .Values.config.data_storage_path | quote }}
+          value: {{ .Values.config.data_storage_location | quote }}
         - name: VAULT_MODE
           value: {{ .Values.config.data_storage_mode | quote }}
 {{ end }}

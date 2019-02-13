@@ -33,7 +33,7 @@ config:
   data_storage_s3_bucket: "lega"
   data_storage_s3_region: "lega"
   data_storage_s3_chunk_size: 4 # Chunk size in MB
-  data_storage_location: "/ega/data_archive" # path to data voulme
+  data_storage_location: "/ega/data_archive" # path to data archive volume
   data_storage_mode: 2750
 
 persistence: 
