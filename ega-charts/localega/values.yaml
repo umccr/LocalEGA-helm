@@ -29,6 +29,12 @@ config:
   postgres_try: 30
   postgres_sslmode: "prefer"
   postgres_user: ""
+  res_host: "" # defaults to localega-res
+  res_port: 8080
+  filedatabase_host: "" # defaults to localega-filedatabase
+  filedatabase_port: 8080
+  dataedge_host: "" # defaults to localega-dataedge
+  dataedge_port: 8080
   data_storage_type: "S3Storage" # S3Storage or FileStorege
   data_storage_url: "" # URl to S3 instance
   data_storage_s3_bucket: "lega"
