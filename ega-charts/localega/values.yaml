@@ -161,6 +161,7 @@ keys:
       memory: "1024Mi"
       cpu: "500m"
   port: 8080
+  servicePort: 9095
   debug: 5054
 
 mapper:

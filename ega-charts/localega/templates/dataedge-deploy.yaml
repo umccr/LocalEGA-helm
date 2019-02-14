@@ -46,9 +46,9 @@ spec:
           value: jdbc:postgresql://{{ if .Values.config.postgres_host }}{{ .Values.config.postgres_host | quote }}{{ else }}{{ template "localega.fullname" . }}-db{{ end }}/{{ .Values.config.postgres_db_name }}"
         - name: JWTKEY
           valueFrom:
-             configMapKeyRef:
-                name: {{ template "localega.name" . }}-dataedge-public-key
-                key: public.key
+            configMapKeyRef:
+              name: {{ template "localega.name" . }}-dataedge-public-key
+              key: public.key
         ports:
         - name: dataedge
           containerPort: {{ .Values.dataedge.port }}
