@@ -32,6 +32,10 @@ spec:
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: no-oss,LocalEGA
+        - name: FILEDATABASE_SERVERS
+          value: {{ if .Values.config.filedatabase_host }}{{ .Values.config.filedatabase_host }}:{{ .Values.config.filedatabase_port }}{{ else }}{{ template "localega.fullname" . }}-keys:{{ .Values.filedatabase.servicePort }}{{ end }}
+        - name: KEYS_SERVERS
+          value: {{ if .Values.config.keyserver_host }}{{ .Values.config.keyserver_host }}:{{ .Values.config.keyserver_port }}{{ else }}{{ template "localega.fullname" . }}-keys:{{ .Values.keys.servicePort }}{{ end }}
         - name: EGA_EGA_EXTERNAL_URL
           value:
         - name: EGA_EGA_CRAM_FASTA_A
@@ -47,7 +51,7 @@ spec:
         - name: SERVICE_ARCHIVE_CLASS
           value:
         - name: EGA_SHAREDPASS_PATH
-          value: /etc/ega/pgp/password
+          value: /etc/ega/shared/password
         - name: EGA_EBI_AWS_ENDPOINT_URL
           value: {{ required "A valid .Values.config.data_storage_url entry required!" .Values.config.data_storage_url | quote }}
         - name: EGA_EBI_AWS_ACCESS_KEY
@@ -73,7 +77,7 @@ spec:
           periodSeconds: 30
         volumeMounts:
           - name: res-shared-pass
-            mountPath: /etc/ega/pgp/
+            mountPath: /etc/ega/shared/
       volumes:
       - name: res-shared-pass
         secret:
