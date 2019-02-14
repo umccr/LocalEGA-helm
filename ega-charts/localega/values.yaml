@@ -24,6 +24,7 @@ config:
   keyserver_port: 8080
   keyserver_endpoint: "/keys/retrieve/%s/private/bin?idFormat=hex"
   postgres_db_name: "lega"
+  postgres_db_schema: "local_ega"
   postgres_host: "" # defaults to localega-db
   postgres_try: 30
   postgres_sslmode: "prefer"
