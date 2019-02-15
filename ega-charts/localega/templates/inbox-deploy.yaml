@@ -68,14 +68,14 @@ spec:
               name: {{ template "localega.name" . }}-cega-creds
               key: credentials
         - name: INBOX_LOCATION
-          value: "/ega/inbox/%s/"
+          value: {{ printf "%s%s" .Values.inbox.location "/%s/" }}
         ports:
         - name: inbox
           containerPort: 9000
           protocol: TCP
         volumeMounts:
         - name: lega-inbox
-          mountPath: /ega/inbox
+          mountPath: {{ .Values.inbox.location | quote }}
         resources:
 {{ toYaml .Values.inbox.resources | indent 10 }}
       volumes:

@@ -115,7 +115,7 @@ spec:
 {{ end }}
         volumeMounts:
         - name: inbox
-          mountPath: /ega/inbox
+          mountPath: {{ .Values.inbox.location | quote }}
       restartPolicy: Always
       volumes:
       - name: inbox
