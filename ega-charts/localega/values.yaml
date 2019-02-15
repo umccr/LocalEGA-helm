@@ -33,7 +33,7 @@ config:
   data_storage_s3_bucket: "lega"
   data_storage_s3_region: "lega"
   data_storage_s3_chunk_size: 4 # Chunk size in MB
-  data_storage_location: "/ega/data_archive" # path to data voulme
+  data_storage_location: "/ega/data_archive" # path to data archive volume
   data_storage_mode: 2750
 
 persistence: 
@@ -120,6 +120,7 @@ inbox:
     nfs:
       server: ""
       path: ""
+  location: "/ega/inbox" # path to inbox volume
   port: 9000
   service:
     type: ClusterIP
@@ -138,6 +139,10 @@ ingest:
     limits:
       memory: "256Mi"
       cpu: "250m"
+## co-locate inbox with ingest
+# If the deployment requires the use of hostPath volumes for the shared filesystem
+# that is used by inbox and ingest, set coLocateInbox: true
+  coLocateInbox: false
 
 keys:
   deploy: true

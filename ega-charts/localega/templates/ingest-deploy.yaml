@@ -23,6 +23,18 @@ spec:
         role: ingest
         release: {{ .Release.Name }}
     spec:
+{{ if or .Values.ingest.coLocateInbox (not .Values.persistence.enabled) }}
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: role
+                operator: In
+                values:
+                - inbox
+            topologyKey: "kubernetes.io/hostname"
+{{ end }}
       containers:
       - name: ingest
         image: "{{ .Values.ingest.repository }}:{{ .Values.ingest.imageTag }}"
@@ -97,13 +109,13 @@ spec:
           value: {{ required "A valid .Values.config.data_storage_url entry required!" .Values.config.data_storage_url | quote }}
 {{ else if eq "FileStorage" .Values.config.data_storage_type}}
         - name: VAULT_LOCATION
-          value: {{ .Values.config.data_storage_path | quote }}
+          value: {{ .Values.config.data_storage_location | quote }}
         - name: VAULT_MODE
           value: {{ .Values.config.data_storage_mode | quote }}
 {{ end }}
         volumeMounts:
         - name: inbox
-          mountPath: /ega/inbox
+          mountPath: {{ .Values.inbox.location | quote }}
       restartPolicy: Always
       volumes:
       - name: inbox
@@ -127,5 +139,6 @@ spec:
           claimName: {{ if .Values.inbox.existingClaim }}{{ .Values.inbox.existingClaim }}{{ else }}{{ template "localega.inbox.fullname" . }}{{ end }}
         {{ end }}
       {{ else}}
-        emptyDir: {}
+        hostPath:
+          path: {{ .Values.inbox.location | quote }}
       {{ end }}

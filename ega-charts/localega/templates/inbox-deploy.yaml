@@ -26,6 +26,18 @@ spec:
         release: {{ .Release.Name }}
         type: ssh-inbox
     spec:
+{{ if or .Values.ingest.coLocateInbox (not .Values.persistence.enabled) }}
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: role
+                operator: In
+                values:
+                - ingest
+            topologyKey: "kubernetes.io/hostname"
+{{ end }}
       containers:
       - name: inbox
         image: "{{ .Values.inbox.repository }}:{{ .Values.inbox.imageTag }}"
@@ -67,13 +79,15 @@ spec:
             secretKeyRef:
               name: {{ template "localega.name" . }}-cega-creds
               key: credentials
+        - name: INBOX_LOCATION
+          value: {{ printf "%s%s" .Values.inbox.location "/%s/" }}
         ports:
         - name: inbox
           containerPort: 9000
           protocol: TCP
         volumeMounts:
         - name: lega-inbox
-          mountPath: /ega/inbox
+          mountPath: {{ .Values.inbox.location | quote }}
         resources:
 {{ toYaml .Values.inbox.resources | indent 10 }}
       volumes:
@@ -98,6 +112,7 @@ spec:
           claimName: {{ .Values.inbox.existingClaim }}
         {{ end }}
       {{ else}}
-        emptyDir: {}
+        hostPath:
+          path: {{ .Values.inbox.location | quote }}
       {{ end }}
 {{ end }}
