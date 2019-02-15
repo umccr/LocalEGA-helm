@@ -30,6 +30,8 @@ spec:
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: no-oss
+        - name: DB_SCHEMA
+          value: {{ .Values.config.postgres_db_schema | quote }}
         - name: DB_USERNAME
           value: {{ .Values.config.postgres_user | quote }}
         - name: DB_PASSWORD
@@ -38,7 +40,7 @@ spec:
               name: {{ template "localega.name" . }}-db-secret
               key: postgres_password
         - name: DB_URL
-          value: {{ if .Values.config.postgres_host }}{{ .Values.config.postgres_host | quote }}{{ else }}{{ template "localega.fullname" . }}-db{{ end }}
+          value: "jdbc:postgresql://{{ if .Values.config.postgres_host }}{{ .Values.config.postgres_host | quote }}{{ else }}{{ template "localega.fullname" . }}-db{{ end }}/{{ .Values.config.postgres_db_name }}"
         ports:
         - name: filedatabase
           containerPort: {{ .Values.filedatabase.port }}

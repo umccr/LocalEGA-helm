@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "localega.name" . }}-dataedge-public-key
+  labels:
+    app: {{ template "localega.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+{{ ( .Files.Glob "conf/public.key" ).AsConfig | indent 2 }}

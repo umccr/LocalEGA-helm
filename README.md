@@ -88,6 +88,7 @@ Parameter | Description | Default
 `config.postgres_try` | Database connection attempts | `30`
 `config.postgres_sslmode` | Use SSL for Database connection | `prefer`
 `config.postgres_user` | Database username | `""`
+`postgres_db_schema`  | Database schema |  `"local_ega"`
 `config.data_storage_type` | Backend storage type, `S3Storage` or `file` | `S3Storage`
 `config.data_storage_url` | URL to S3 storage instance | `""`
 `config.data_storage_s3_bucket` | S3 storage bucket | `lega`
@@ -95,7 +96,13 @@ Parameter | Description | Default
 `config.data_storage_s3_chunk_size` | S3 chunk size in MB | `4`
 `config.data_storage_location` | Path to FileStorage volume | `/ega/data_archive`
 `config.data_storage_mode` | File mode in storage volume | `2750`
-`persistence.enabled`| If true, create a Persistent Volume Claim for all services that require it| `true`
+`res_host` | reencryption service host  | `"" `
+`res_port` | reencryption service port | `8080`
+`filedatabase_host` | filedatabase host | `""`
+`filedatabase_port` | filedatabase port | `8080`
+`dataedge_host` | dataedge host | `""`
+`dataedge_port` | dataedge port | `8080`
+`persistence.enabled` | If true, create a Persistent Volume Claim for all services that require it | `true`
 `persistence.storageClass` | Storage Class for all Persistent volume Claims, use "local-storage" for local backed storage | `""`
 `revisionHistory` | number of old ReplicaSets to retain to allow rollback | `3`
 `secrets.keys_password` | Shared LocalEGA PGP password | `""`

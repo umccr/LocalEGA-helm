@@ -21,13 +21,20 @@ config:
   cega_port: 5672
   cega_username: "" # cega user
   keyserver_host: "" # defaults to localega-keys
-  keyserver_port: 8080
+  keyserver_port: 9095
   keyserver_endpoint: "/keys/retrieve/%s/private/bin?idFormat=hex"
   postgres_db_name: "lega"
+  postgres_db_schema: "local_ega"
   postgres_host: "" # defaults to localega-db
   postgres_try: 30
   postgres_sslmode: "prefer"
   postgres_user: ""
+  res_host: "" # defaults to localega-res
+  res_port: 9090
+  filedatabase_host: "" # defaults to localega-filedatabase
+  filedatabase_port: 9050
+  dataedge_host: "" # defaults to localega-dataedge
+  dataedge_port: 9059
   data_storage_type: "S3Storage" # S3Storage or FileStorege
   data_storage_url: "" # URl to S3 instance
   data_storage_s3_bucket: "lega"
@@ -159,6 +166,7 @@ keys:
       memory: "1024Mi"
       cpu: "500m"
   port: 8080
+  servicePort: 9095
   debug: 5054
 
 mapper:
