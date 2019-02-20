@@ -98,7 +98,6 @@ Parameter | Description | Default
 `res_host` | reencryption service host  | `"" `
 `res_port` | reencryption service port | `8080`
 `filedatabase_host` | filedatabase host | `""`
-`filedatabase_port` | filedatabase port | `8080`
 `dataedge_host` | dataedge host | `""`
 `dataedge_port` | dataedge port | `8080`
 `persistence.enabled` | If true, create a Persistent Volume Claim for all services that require it | `true`
