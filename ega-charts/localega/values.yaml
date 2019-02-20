@@ -58,8 +58,8 @@ persistence:
 secrets:
   cega_creds: ""
   cega_mq_pass: ""
-  keys_password: ""
-  lega_password: ""
+  pgp_password: ""
+  shared_pgp_password: ""
   mq_password: ""
   postgres_password: ""
   s3_access_key: ""

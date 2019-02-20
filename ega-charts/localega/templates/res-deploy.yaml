@@ -51,7 +51,7 @@ spec:
         - name: SERVICE_ARCHIVE_CLASS
           value:
         - name: EGA_SHAREDPASS_PATH
-          value: /etc/ega/shared/password
+          value: /etc/ega/shared.pass
         - name: EGA_EBI_AWS_ENDPOINT_URL
           value: {{ required "A valid .Values.config.data_storage_url entry required!" .Values.config.data_storage_url | quote }}
         - name: EGA_EBI_AWS_ACCESS_KEY
@@ -77,8 +77,8 @@ spec:
           periodSeconds: 30
         volumeMounts:
           - name: res-shared-pass
-            mountPath: /etc/ega/shared/
+            mountPath: /etc/ega/
       volumes:
       - name: res-shared-pass
         secret:
-          secretName: {{ template "localega.name" . }}-password
+          secretName: {{ template "localega.name" . }}-shared-password

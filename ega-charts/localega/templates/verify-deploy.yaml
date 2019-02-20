@@ -102,8 +102,8 @@ spec:
         - name: LEGA_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ template "localega.name" . }}-password
-              key: password
+              name: {{ template "localega.name" . }}-shared-password
+              key: shared.pass
         resources:
 {{ toYaml .Values.verify.resources | indent 10 }}
       restartPolicy: Always

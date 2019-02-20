@@ -69,8 +69,8 @@ spec:
         - name: LEGA_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ template "localega.name" . }}-password
-              key: password
+              name: {{ template "localega.name" . }}-shared-password
+              key: shared.pass
         - name: POSTGRES_HOST
           value: {{ if .Values.config.postgres_host }}{{ .Values.config.postgres_host | quote }}{{ else }}{{ template "localega.fullname" . }}-db{{ end }}
         - name: POSTGRES_PASSWORD
