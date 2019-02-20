@@ -28,7 +28,6 @@ config:
   postgres_sslmode: "prefer"
   postgres_user: ""
   res_host: "" # defaults to localega-res
-  res_port: 9090
   filedatabase_host: "" # defaults to localega-filedatabase
   dataedge_host: "" # defaults to localega-dataedge
   data_storage_type: "S3Storage" # S3Storage or FileStorege

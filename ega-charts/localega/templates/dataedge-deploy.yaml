@@ -35,7 +35,7 @@ spec:
         - name: KEYS_SERVERS
           value: "{{ if .Values.config.keyserver_host }}{{ .Values.config.keyserver_host }}:{{ .Values.keys.servicePort }}{{ else }}{{ template "localega.fullname" . }}-keys:{{ .Values.keys.servicePort }}{{ end }}"
         - name: RES_SERVERS
-          value: "{{ if .Values.config.res_host }}{{ .Values.config.res_host }}:{{ .Values.config.res_port }}{{ else }}{{ template "localega.fullname" . }}-res:{{ .Values.res.servicePort }}{{ end }}"
+          value: "{{ if .Values.config.res_host }}{{ .Values.config.res_host }}:{{ .Values.res.servicePort }}{{ else }}{{ template "localega.fullname" . }}-res:{{ .Values.res.servicePort }}{{ end }}"
         - name: EGA_EGA_EXTERNAL_URL
           value: "https://ega.ebi.ac.uk:8051/elixir/data/files/"
         - name: EGA_EGA_CRAM_FASTA_A

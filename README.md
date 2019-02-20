@@ -96,7 +96,6 @@ Parameter | Description | Default
 `config.data_storage_location` | Path to FileStorage volume | `/ega/data_archive`
 `config.data_storage_mode` | File mode in storage volume | `2750`
 `res_host` | reencryption service host  | `"" `
-`res_port` | reencryption service port | `8080`
 `filedatabase_host` | filedatabase host | `""`
 `dataedge_host` | dataedge host | `""`
 `persistence.enabled` | If true, create a Persistent Volume Claim for all services that require it | `true`
