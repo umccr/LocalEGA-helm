@@ -70,7 +70,7 @@ spec:
         - name: POSTGRES_USER
           value: {{ .Values.config.postgres_user | quote }}
         - name: QUALITY_CONTROL_KEYSERVER_ENDPOINT
-          value: {{ if .Values.config.keyserver_host }}{{ .Values.config.keyserver_host }}{{ else }}https://{{ template "localega.fullname" . }}-keys{{ end }}:{{ .Values.config.keyserver_port }}{{ .Values.config.keyserver_endpoint }}
+          value: {{ if .Values.config.keyserver_host }}{{ .Values.config.keyserver_host }}{{ else }}http://{{ template "localega.fullname" . }}-keys{{ end }}:{{ .Values.config.keyserver_port }}{{ .Values.config.keyserver_endpoint }}
         - name: QUALITY_CONTROL_VERIFY_CERTIFICATE
           value: "false"
         - name: VAULT_DRIVER
