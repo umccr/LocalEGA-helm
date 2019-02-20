@@ -20,7 +20,6 @@ config:
   cega_port: 5672
   cega_username: "" # cega user
   keyserver_host: "" # defaults to localega-keys
-  keyserver_port: 9095
   keyserver_endpoint: "/keys/retrieve/%s/private/bin?idFormat=hex"
   postgres_db_name: "lega"
   postgres_db_schema: "local_ega"

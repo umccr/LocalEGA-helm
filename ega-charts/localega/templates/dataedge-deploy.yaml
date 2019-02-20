@@ -33,7 +33,7 @@ spec:
         - name: FILEDATABASE_SERVERS
           value: "{{ if .Values.config.filedatabase_host }}{{ .Values.config.filedatabase_host }}:{{ .Values.config.filedatabase_port }}{{ else }}{{ template "localega.fullname" . }}-filedatabase:{{ .Values.filedatabase.servicePort }}{{ end }}"
         - name: KEYS_SERVERS
-          value: "{{ if .Values.config.keyserver_host }}{{ .Values.config.keyserver_host }}:{{ .Values.config.keyserver_port }}{{ else }}{{ template "localega.fullname" . }}-keys:{{ .Values.keys.servicePort }}{{ end }}"
+          value: "{{ if .Values.config.keyserver_host }}{{ .Values.config.keyserver_host }}:{{ .Values.keys.servicePort }}{{ else }}{{ template "localega.fullname" . }}-keys:{{ .Values.keys.servicePort }}{{ end }}"
         - name: RES_SERVERS
           value: "{{ if .Values.config.res_host }}{{ .Values.config.res_host }}:{{ .Values.config.res_port }}{{ else }}{{ template "localega.fullname" . }}-res:{{ .Values.res.servicePort }}{{ end }}"
         - name: EGA_EGA_EXTERNAL_URL

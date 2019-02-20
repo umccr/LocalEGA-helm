@@ -81,7 +81,6 @@ Parameter | Description | Default
 `config.cega_port` | CEGA MQ acces port | `5672`
 `config.cega_username` | CEGA MQ username | `""`
 `config.keyserver_host` | Hostname of keyserver | `Defaults to localega-keys unless set`
-`config.keyserver_port` | acces port of keyserver | `8080`
 `config.keyserver_endpoint` | Endpoint of keyserver API | `/keys/retrieve/%s/private/bin?idFormat=hex`
 `config.postgres_db_name` | Database name | `lega`
 `config.postgres_host` | Database hostname or IP address | `defaults to localega-db unless set`
@@ -141,7 +140,8 @@ Parameter | Description | Default
 `keys.repository` | Keyserver container image repository | `cscfi/ega-keyserver`
 `keys.imageTag` | Keyserver container image version | `"1.0"`
 `keys.imagePullPolicy` | Keyserver container image pull policy | `IfNotPresent`
-`keys.port` | Keyserver port | `8443`
+`keys.port` | Keyserver port | `8080`
+`keys.servicePort` | Keyserver port | `9095`
 `mq.name` | rabbitmq container name | `rabbitmq`
 `mq.repository` | rabbitmq container image repository | `rabbitmq`
 `mq.imageTag` | rabbitmq container image pull policy | `3.6-management-alpine`
