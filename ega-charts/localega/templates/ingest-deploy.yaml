@@ -40,6 +40,7 @@ spec:
         image: "{{ .Values.ingest.repository }}:{{ .Values.ingest.imageTag }}"
         imagePullPolicy: {{ .Values.ingest.imagePullPolicy | quote }}
         command: ["gosu", "lega", "ega-ingest"]
+        args: ["--log", "debug"]
         resources:
 {{ toYaml .Values.ingest.resources | indent 10 }}
         env:

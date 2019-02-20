@@ -29,6 +29,7 @@ spec:
         image: "{{ .Values.verify.repository }}:{{ .Values.verify.imageTag }}"
         imagePullPolicy: {{ .Values.verify.imagePullPolicy | quote }}
         command: ["gosu", "lega", "ega-verify"]
+        args: ["--log", "debug"]
         env:
         - name: DEFAULT_LOG
           value: {{ .Values.config.log | quote }}
