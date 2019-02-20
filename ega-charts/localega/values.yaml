@@ -31,7 +31,6 @@ config:
   res_port: 9090
   filedatabase_host: "" # defaults to localega-filedatabase
   dataedge_host: "" # defaults to localega-dataedge
-  dataedge_port: 9059
   data_storage_type: "S3Storage" # S3Storage or FileStorege
   data_storage_url: "" # URl to S3 instance
   data_storage_s3_bucket: "lega"
