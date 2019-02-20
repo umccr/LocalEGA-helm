@@ -3,7 +3,6 @@
 # Declare variables to be passed into your templates.
 
 config:
-  deploy: true
   log: "debug"
   broker_connection_attempts: 30
   broker_enable_ssl: "false"
