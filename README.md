@@ -138,7 +138,7 @@ Parameter | Description | Default
 `keys.imageTag` | Keyserver container image version | `"1.0"`
 `keys.imagePullPolicy` | Keyserver container image pull policy | `IfNotPresent`
 `keys.port` | Keyserver port | `8080`
-`keys.servicePort` | Keyserver port | `9095`
+`keys.servicePort` | Keyserver service port | `9095`
 `mq.name` | rabbitmq container name | `rabbitmq`
 `mq.repository` | rabbitmq container image repository | `rabbitmq`
 `mq.imageTag` | rabbitmq container image pull policy | `3.6-management-alpine`
