@@ -29,6 +29,7 @@ spec:
         image: "{{ .Values.verify.repository }}:{{ .Values.verify.imageTag }}"
         imagePullPolicy: {{ .Values.verify.imagePullPolicy | quote }}
         command: ["gosu", "lega", "ega-verify"]
+        args: ["--log", {{ .Values.config.log | quote }}]
         env:
         - name: DEFAULT_LOG
           value: {{ .Values.config.log | quote }}
@@ -69,7 +70,7 @@ spec:
         - name: POSTGRES_USER
           value: {{ .Values.config.postgres_user | quote }}
         - name: QUALITY_CONTROL_KEYSERVER_ENDPOINT
-          value: {{ if .Values.config.keyserver_host }}{{ .Values.config.keyserver_host }}{{ else }}https://{{ template "localega.fullname" . }}-keys{{ end }}:{{ .Values.config.keyserver_port }}{{ .Values.config.keyserver_endpoint }}
+          value: {{ if .Values.config.keyserver_host }}{{ .Values.config.keyserver_host }}{{ else }}http://{{ template "localega.fullname" . }}-keys{{ end }}:{{ .Values.keys.servicePort }}{{ .Values.config.keyserver_endpoint }}
         - name: QUALITY_CONTROL_VERIFY_CERTIFICATE
           value: "false"
         - name: VAULT_DRIVER
@@ -102,8 +103,8 @@ spec:
         - name: LEGA_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ template "localega.name" . }}-password
-              key: password
+              name: {{ template "localega.name" . }}-shared-password
+              key: shared.pass
         resources:
 {{ toYaml .Values.verify.resources | indent 10 }}
       restartPolicy: Always

@@ -28,6 +28,7 @@ spec:
         image: "{{ .Values.mapper.repository }}:{{ .Values.mapper.imageTag }}"
         imagePullPolicy: {{ .Values.mapper.imagePullPolicy | quote }}
         command: ["gosu", "lega", "ega-id-mapper"]
+        args: ["--log", {{ .Values.config.log | quote }}]
         env:
         - name: DEFAULT_LOG
           value: {{ .Values.config.log | quote }}

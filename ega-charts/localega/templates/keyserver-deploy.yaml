@@ -32,13 +32,13 @@ spec:
         - name: SPRING_PROFILES_ACTIVE
           value: no-oss
         - name: EGA_KEY_PATH
-          value: /etc/ega/key/key.1.sec
-        - name: EGA_SHAREDPASS_PATH
-          value: /etc/ega/shared/password
-        - name: EGA_PUBLICKEY_URL
-          value: /etc/ega/key/ssl.key
+          value: /etc/ega/pgp/key.1.sec
         - name: EGA_KEYPASS_PATH
-          value: /etc/ega/access/password
+          value: /etc/ega/pgp/key.1.pass
+        - name: EGA_SHAREDPASS_PATH
+          value: /etc/ega/pgp/shared.pass
+        - name: EGA_PUBLICKEY_URL
+          value: /etc/ega/ssl/ssl.key
         - name: EGA_LEGACY_PATH
           value:
         - name: DB_USERNAME
@@ -51,7 +51,7 @@ spec:
         - name: DB_URL
           value: "jdbc:postgresql://{{ if .Values.config.postgres_host }}{{ .Values.config.postgres_host | quote }}{{ else }}{{ template "localega.fullname" . }}-db{{ end }}/{{ .Values.config.postgres_db_name }}"
         - name: FILEDATABASE_SERVERS
-          value: "{{ if .Values.config.filedatabase_host }}{{ .Values.config.filedatabase_host }}:{{ .Values.config.filedatabase_port }}{{ else }}{{ template "localega.fullname" . }}-filedatabase:{{ .Values.filedatabase.servicePort }}{{ end }}"
+          value: "{{ if .Values.config.filedatabase_host }}{{ .Values.config.filedatabase_host }}:{{ .Values.filedatabase.servicePort }}{{ else }}{{ template "localega.fullname" . }}-filedatabase:{{ .Values.filedatabase.servicePort }}{{ end }}"
         ports:
         - name: key-app-port
           containerPort: {{ .Values.keys.port }}
@@ -64,29 +64,25 @@ spec:
         resources:
 {{ toYaml .Values.keys.resources | indent 10 }}
         volumeMounts:
-        - name: keyserver-secret
-          mountPath: /etc/ega/key
-        - name: res-shared-pass
-          mountPath: /etc/ega/shared
-        - name: ega-key-pass
-          mountPath: /etc/ega/access
+        - name: keyserver-pgpkeys
+          mountPath: /etc/ega/pgp
       volumes:
-        - name: res-shared-pass
-          secret:
-            secretName: {{ template "localega.name" . }}-password
-        - name: ega-key-pass
-          secret:
-            secretName: {{ template "localega.name" . }}-keypass
-        - name: keyserver-secret
+        - name: keyserver-pgpkeys
           projected:
             sources:
             - secret:
                 name: {{ template "localega.name" . }}-keyserver-secret
                 items:
-                  - key: ssl.cert
-                    path: ssl.cert
-                  - key: ssl.key
-                    path: ssl.key
-                  - key: key.1.sec
-                    path: key.1.sec
+                - key: key.1.sec
+                  path: key.1.sec
+            - secret:
+                name: {{ template "localega.name" . }}-shared-password
+                items:
+                - key: shared.pass
+                  path: shared.pass
+            - secret:
+                name: {{ template "localega.name" . }}-pgp-passphrase
+                items:
+                - key: pgp.pass
+                  path: key.1.pass
 {{ end }}
