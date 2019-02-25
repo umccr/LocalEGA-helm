@@ -106,7 +106,7 @@ Parameter | Description | Default
 `persistence.enabled` | If true, create a Persistent Volume Claim for all services that require it | `true`
 `persistence.storageClass` | Storage Class for all Persistent volume Claims, use "local-storage" for local backed storage | `""`
 `revisionHistory` | number of old ReplicaSets to retain to allow rollback | `3`
-`secrets.kpgp_password` | private LocalEGA PGP password | `""`
+`secrets.pgp_passphrase` | private LocalEGA PGP passphrase | `""`
 `secrets.shared_pgp_password` | Shared LocalEGA PGP password | `""`
 `secrets.postgres_password` | Password to LocalEGA sql database | `""`
 `secrets.s3_access_key` | Access key to S3 storage | `""`

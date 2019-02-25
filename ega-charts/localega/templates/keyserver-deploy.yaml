@@ -81,7 +81,7 @@ spec:
                 - key: shared.pass
                   path: shared.pass
             - secret:
-                name: {{ template "localega.name" . }}-pgp-password
+                name: {{ template "localega.name" . }}-pgp-passphrase
                 items:
                 - key: pgp.pass
                   path: key.1.pass

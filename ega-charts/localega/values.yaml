@@ -54,7 +54,7 @@ persistence:
 secrets:
   cega_creds: ""
   cega_mq_pass: ""
-  pgp_password: ""
+  pgp_passphrase: ""
   shared_pgp_password: ""
   mq_password: ""
   postgres_password: ""
