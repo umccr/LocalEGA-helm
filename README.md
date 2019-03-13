@@ -58,13 +58,20 @@ First download the values.yaml file:
 curl -o values.yaml https://raw.githubusercontent.com/NBISweden/LocalEGA-helm/master/ega-charts/localega/values.yaml
 ```
 
-Edit the values.yaml file and specify all serets, and relevant hostnames for cega-mq, cega-users, SQL and the relevant data_storage parts.
+Edit the values.yaml file and specify all secrets, and relevant hostnames for cega-mq, cega-users, SQL and the relevant data_storage parts. The defaults in values.yml are configured such that a local installation of fakecega with name "cega" will work. 
+
+If you wish to install fakecega, run the following:
+
+```console
+helm install --name cega --namespace localega -f values.yaml ega-charts/cega
+```
 
 You can then install the `localega` chart via Helm CLI:
 
 ```console
-helm install --name localega --namespace localega -f values.yaml ega-charts/localega
+helm install --name lega --namespace localega -f values.yaml ega-charts/localega
 ```
+
 
 ### Configuration
 
