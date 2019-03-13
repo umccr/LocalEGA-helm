@@ -7,33 +7,33 @@ config:
   broker_connection_attempts: 30
   broker_enable_ssl: "false"
   broker_heartbeat: 0
-  broker_host: "" # defaults to localega-mq
+  broker_host: "lega-localega-mq" # defaults to localega-mq
   broker_port: 5672
   broker_retry_delay: 10
   broker_username: "guest" # local broker user
   broker_vhost: "/"
-  cega_users_host: # http://cega-users-server-fqdn
+  cega_users_host: cega-users # http://cega-users-server-fqdn
   cega_users_endpoint: "/lega/v1/legas/users/%s?idType=username" # "/lega/v1/legas/users/%s?idType=username"
   cega_endpoint_json: "response.result"
-  cega_mq_host: "" # FQDN to cega mq host
-  cega_vhost: "/"
+  cega_mq_host: "cega-mq" # FQDN to cega mq host
+  cega_vhost: "lega"
   cega_port: 5672
-  cega_username: "" # cega user
-  keyserver_host: "" # defaults to localega-keys
+  cega_username: "lega" # cega user
+  keyserver_host: "lega-localega-keys" # defaults to localega-keys
   keyserver_endpoint: "/keys/retrieve/%s/private/bin?idFormat=hex"
   postgres_db_name: "lega"
   postgres_db_schema: "local_ega"
-  postgres_host: "" # defaults to localega-db
+  postgres_host: "lega-localega-db" # defaults to localega-db
   postgres_try: 30
   postgres_sslmode: "prefer"
-  postgres_user: ""
-  res_host: "" # defaults to localega-res
-  filedatabase_host: "" # defaults to localega-filedatabase
-  dataedge_host: "" # defaults to localega-dataedge
+  postgres_user: "lega"
+  res_host: "lega-localega-res" # defaults to localega-res
+  filedatabase_host: "lega-localega-filedatabase" # defaults to localega-filedatabase
+  dataedge_host: "lega-localega-filedatabase" # defaults to localega-dataedge
   data_storage_type: "S3Storage" # S3Storage or FileStorege
-  data_storage_url: "" # URl to S3 instance
-  data_storage_s3_bucket: "lega"
-  data_storage_s3_region: "lega"
+  data_storage_url: "" # URl to S3 instance ex http://my-cool-bucket.s3.amazonaws.com
+  data_storage_s3_bucket: ""
+  data_storage_s3_region: ""
   data_storage_s3_chunk_size: 4 # Chunk size in MB
   data_storage_location: "/ega/data_archive" # path to data archive volume
   data_storage_mode: 2750
@@ -52,12 +52,12 @@ persistence:
 # revisionHistory: 3
 
 secrets:
-  cega_creds: ""
-  cega_mq_pass: ""
-  pgp_passphrase: ""
-  shared_pgp_password: ""
-  mq_password: ""
-  postgres_password: ""
+  cega_creds: "cega"
+  cega_mq_pass: "lega"
+  pgp_passphrase: "password"
+  shared_pgp_password: "password"
+  mq_password: "guest"
+  postgres_password: "password"
   s3_access_key: ""
   s3_secret_key: ""
 
