@@ -91,9 +91,9 @@ spec:
           value: {{ .Values.config.data_storage_type | quote }}
 {{ if eq "S3Storage" .Values.config.data_storage_type }}
         - name: VAULT_BUCKET
-          value: {{ .Values.config.data_storage_s3_region | quote }}
-        - name: VAULT_REGION
           value: {{ .Values.config.data_storage_s3_bucket | quote }}
+        - name: VAULT_REGION
+          value: {{ .Values.config.data_storage_s3_region | quote }}
         - name: S3_ACCESS_KEY
           valueFrom:
             secretKeyRef:
